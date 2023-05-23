@@ -20,6 +20,7 @@ const Animation: React.FC<Animation> = ({ children }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         exit={{ opacity: 1 }}
+        layout={false}
       >
         {children}
       </m.main>
