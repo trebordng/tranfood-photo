@@ -4,7 +4,6 @@ import Animation from "@/layout/animation";
 import Image from "next/image";
 import home from "@/public/images/home.jpg"
 export default function Home() {
-  console.log(home.blurDataURL)
   return (
     <Animation>
       <Image
@@ -17,7 +16,8 @@ export default function Home() {
         height={100}
         alt="Cabbage with Sesame Seeds"
         className="h-full w-full object-cover"
-      ></Image>
+      />
+      <h1 className="absolute top-[50%] left-[50%] text-2xl text-white">Test</h1>
     </Animation>
   );
 }

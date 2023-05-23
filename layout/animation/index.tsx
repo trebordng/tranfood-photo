@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { motion as m } from "framer-motion";
 
@@ -12,17 +12,22 @@ const Animation: React.FC<Animation> = ({ children }) => {
   const pathname = usePathname();
 
   return (
-    <m.main
-      key={pathname}
-      className="w-full h-full overflow-y-auto"
-      initial={{ x: "125%" }}
-      animate={{ x: "0%" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      exit={{ opacity: 1 }}
-      layout={false}
-    >
-      {children}
-    </m.main>
+    <LazyMotion features={domAnimation}>
+      <m.main
+        key={pathname}
+        className="w-full h-full overflow-y-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          type: "spring",
+          duration: 1,
+          damping: 20,
+        }}
+        exit={{ opacity: 1 }}
+      >
+        {children}
+      </m.main>
+    </LazyMotion>
   );
 };
 
