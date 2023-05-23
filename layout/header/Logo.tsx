@@ -8,7 +8,7 @@ const Logo = () => {
       <Image
         alt="Tran Food Photography Logo"
         src="/images/logo.png"
-        height="60"
+        height={60}
         width={120}
         priority
         className="h-64 md:h-72 lg:h-80 xl:h-96 w-auto"

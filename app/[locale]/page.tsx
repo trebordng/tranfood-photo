@@ -1,3 +1,5 @@
+'use client';
+
 import Animation from "@/layout/animation";
 import Image from "next/image";
 import home from "@/public/images/home.jpg"

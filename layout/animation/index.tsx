@@ -12,19 +12,17 @@ const Animation: React.FC<Animation> = ({ children }) => {
   const pathname = usePathname();
 
   return (
-    <AnimatePresence>
-      <m.main
-        key={pathname}
-        className="w-full h-full overflow-y-auto"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        exit={{ opacity: 1 }}
-        layout={false}
-      >
-        {children}
-      </m.main>
-    </AnimatePresence>
+    <m.main
+      key={pathname}
+      className="w-full h-full overflow-y-auto"
+      initial={{ x: "125%" }}
+      animate={{ x: "0%" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      exit={{ opacity: 1 }}
+      layout={false}
+    >
+      {children}
+    </m.main>
   );
 };
 
