@@ -13,7 +13,7 @@ export default function Home() {
         height={100}
         alt="Cabbage with Sesame Seeds"
         priority
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover bg-black"
       ></Image>
     </Animation>
   );
