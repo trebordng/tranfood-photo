@@ -8,6 +8,7 @@ export default function Home() {
       <Image
         src={home.src}
         placeholder="blur"
+        loading="eager"
         blurDataURL={home.blurDataURL}
         sizes="auto"
         width={100}
