@@ -1,0 +1,15 @@
+{
+  "navbar": {
+    "home": "Home",
+    "album":"Album",
+    "food":"Food",
+    "drink":"Drink",
+    "action":"Action",
+    "lifestyle":"Lifestyle",
+    "art":"Art",
+    "recipes":"Recipes",
+    "blogs":"Blogs",
+    "about": "About",
+    "contact":"Contact"
+  }
+}

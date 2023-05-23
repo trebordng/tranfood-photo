@@ -1,0 +1,15 @@
+{
+  "navbar": {
+    "home": "Trang Chủ",
+    "album":"Kho Ảnh",
+    "food":"Đồ Ăn",
+    "drink":"Thức Uống",
+    "action":"Hành Động",
+    "lifestyle":"Lối Sống",
+    "art":"Nghệ Thuật",
+    "recipes":"Công Thức",
+    "blogs":"Blogs",
+    "about": "Một Chút Về Tôi",
+    "contact":"Liên Hệ"
+  }
+}
