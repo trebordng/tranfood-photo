@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import Animation from "@/layout/animation";
 import Image from "next/image";
-import home from "@/public/images/home.jpg"
+import home from "@/public/images/home.jpg";
 export default function Home() {
   return (
-    <Animation>
+    <div className="w-full h-full overflow-y-auto">
       <Image
         src={home.src}
         placeholder="blur"
@@ -17,7 +17,6 @@ export default function Home() {
         alt="Cabbage with Sesame Seeds"
         className="h-full w-full object-cover"
       />
-      <h1 className="absolute top-[50%] left-[50%] text-2xl text-white">Test</h1>
-    </Animation>
+    </div>
   );
 }

@@ -12,8 +12,7 @@ interface Page {
 const Navbar = () => {
   const t = useTranslations("navbar");
   const pages: Page[] = [
-    { slug: "/", name: t("home"), sub: false },
-    { slug: "/album", name: t("album"), sub: false },
+    { slug: "/", name: t("album"), sub: false },
     { slug: "/food", name: t("food"), sub: true },
     { slug: "/drink", name: t("drink"), sub: true },
     { slug: "/action", name: t("action"), sub: true },
