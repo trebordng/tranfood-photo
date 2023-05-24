@@ -10,7 +10,7 @@ export const metadata = {
     canonical: 'https://tranfood-photo.vercel.app/',
     languages: {
       'en': 'https://tranfood-photo.vercel.app/en',
-      'vi': 'https://tranfood-photo.vercel.app/vie',
+      'vi': 'https://tranfood-photo.vercel.app/vi',
     },
   },
 };
