@@ -23,7 +23,7 @@ const LocaleLayout: React.FC<Layout> = ({ children, params }) => {
 
   return (
     <html lang={locale}>
-      <body className="bg-white p-16 md:p-24 lg:p-32 xl:p-40 flex flex-col xl:flex-row h-[100vh] overflow-hidden">
+      <body className="bg-white p-16 md:p-24 lg:p-32 xl:p-40 flex flex-col xl:flex-row xl:items-stretch xl:h-[100vh] min-h-[100vh] overflow-x-hidden overflow-y-auto">
         <Header />
         {children}
       </body>

@@ -7,6 +7,12 @@ module.exports = {
     "./layout/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: { raw: "(min-height: 800px) and (min-width:1280px)" },
+    },
     extend: {
       colors: {
         white: "#F5EDED",
@@ -51,6 +57,16 @@ module.exports = {
         72: "72px",
         80: "80px",
         96: "96px",
+        128: "128px",
+        192: "192px",
+        256: "256px",
+        320: "320px",
+        416: "416px",
+        512: "512px",
+        768: "768px",
+        1024: "1024px",
+      },
+      minHeight: {
         128: "128px",
         192: "192px",
         256: "256px",

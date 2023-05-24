@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { WiStars } from "react-icons/wi";
+import { RiLeafFill } from "react-icons/ri";
 
 interface NavLink {
   slug: string;
@@ -15,7 +15,7 @@ const NavLink: React.FC<NavLink> = ({ slug, sub, name }) => {
 
   return (
     <li
-      className={`font-antic-didone text-xl tracking-wider py-8 flex items-center ${
+      className={`font-antic-didone text-xl tracking-wider py-8 flex items-center gap-4 ${
         sub && "ml-24"
       } ${
         pathname === slug ||
@@ -37,7 +37,7 @@ const NavLink: React.FC<NavLink> = ({ slug, sub, name }) => {
       {(pathname === slug ||
         pathname === "vie" + slug ||
         pathname === slug + "vie") && (
-        <WiStars className="text-2xl text-black" />
+        <RiLeafFill className="text-xl text-black" />
       )}
     </li>
   );
