@@ -34,7 +34,7 @@ export default function Album() {
             <Image
               src={album.image.src}
               placeholder="blur"
-              loading="lazy"
+              priority
               blurDataURL={album.image.blurDataURL}
               sizes="auto"
               width={100}
