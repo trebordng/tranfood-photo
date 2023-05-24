@@ -1,6 +1,5 @@
 "use client";
 
-import Animation from "@/layout/animation";
 import Image, { StaticImageData } from "next/image";
 import food from "@/public/images/food.jpg";
 import drink from "@/public/images/drink.jpg";
