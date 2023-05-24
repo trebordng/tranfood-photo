@@ -4,7 +4,7 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <Link href="/">
+    <Link aria-label="Tran food Photo" href="/">
       <Image
         alt="Tran Food Photography Logo"
         src="/images/logo.png"

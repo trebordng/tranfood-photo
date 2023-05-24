@@ -1,5 +1,3 @@
-"use client";
-
 import Image, { StaticImageData } from "next/image";
 import food from "@/public/images/food.jpg";
 import drink from "@/public/images/drink.jpg";
@@ -7,6 +5,7 @@ import action from "@/public/images/action.jpg";
 import lifestyle from "@/public/images/lifestyle.jpg";
 
 import Link from "next/link";
+
 interface Album {
   name: string;
   image: StaticImageData;
@@ -27,6 +26,7 @@ export default function Album() {
         <Link
           href={album.slug}
           key={album.slug}
+          arial-label={album.slug}
           className="lg:w-[calc(50%-20px)] lg:h-[calc(50%-20px)] lg:max-h-[50vh] rounded-lg overflow-hidden relative bg-black hover:bg-none"
         >
           <Image
@@ -37,7 +37,7 @@ export default function Album() {
             sizes="auto"
             width={100}
             height={100}
-            alt="Cabbage with Sesame Seeds"
+            alt={album.name}
             className="h-full w-full object-cover hover:blur-sm transition opacity-80 hover:opacity-1"
           />
           <h2 className="text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl uppercase font-bold">

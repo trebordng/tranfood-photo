@@ -8,7 +8,7 @@ interface Icon {
 }
 const Icon: React.FC<Icon> = ({ slug, icon: Icon }) => {
   return (
-    <Link href={slug} target="_blank" rel="noopener">
+    <Link aria-label={slug} href={slug} target="_blank" rel="noopener">
       {Icon && <Icon className="color-white" />}
     </Link>
   );

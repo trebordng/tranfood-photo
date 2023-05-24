@@ -26,6 +26,7 @@ const NavLink: React.FC<NavLink> = ({ slug, sub, name }) => {
       } hover:text-black`}
     >
       <Link
+        aria-label={slug}
         href={slug}
         {...(slug === "http://tranphotographicart.com/" && {
           target: "_blank",
