@@ -36,10 +36,8 @@ export default function Album() {
               placeholder="blur"
               priority
               blurDataURL={album.image.blurDataURL}
-              sizes="auto"
-              width={100}
-              height={100}
               alt={album.name}
+              sizes="(max-width: 100%)"
               className="h-full w-full object-cover hover:blur-sm transition opacity-80 hover:opacity-1"
             />
             <h2 className="text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl uppercase font-bold">
