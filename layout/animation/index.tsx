@@ -16,7 +16,7 @@ const Animation: React.FC<Animation> = ({ children }) => {
     <AnimatePresence>
       <m.main
         key={pathname}
-        className="w-full h-full font-lato"
+        className="flex-auto flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{

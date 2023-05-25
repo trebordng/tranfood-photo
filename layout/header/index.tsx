@@ -5,7 +5,7 @@ import NavUtils from "./utils";
 
 const Header = () => {
   return (
-    <nav className="flex xl:flex-col xl:basis-1/5 xl:items-start xl:pr-40 justify-between items-center pb-16 md:pb-24 lg:pb-32 xl:pb-0  xl:min-h-full">
+    <nav className="flex xl:flex-col xl:items-start justify-between items-center">
       <Logo />
       <Navbar />
       <NavUtils />

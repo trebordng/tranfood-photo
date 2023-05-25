@@ -11,7 +11,7 @@ const AlbumLink: React.FC<Album> = ({ slug, image, name }) => {
       href={slug}
       key={slug}
       arial-label={slug}
-      className="lg:w-[calc(50%-20px)] xl:h-[calc(50%-20px)] max-h-[50vh] min-h-[calc(50%-20px)] rounded-lg overflow-hidden relative bg-black hover:bg-none"
+      className="lg:w-[calc(50%-16px)] xl:w-[calc(50%-20px)] xl:h-[calc(50%-20px)] max-h-[50%] min-h-256 rounded-lg overflow-hidden relative bg-black hover:bg-none"
     >
       <Image
         src={image.src}
