@@ -4,7 +4,6 @@ import React from "react";
 const About = () => {
   return (
     <Animation>
-      {" "}
       <div className="bg-red h-full">page</div>
     </Animation>
   );

@@ -15,10 +15,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        white: "#F5EDED",
-        black: "#000000",
-        grey: "#666666",
-        red: "#D72323",
+        white:"#F7F7F7",
+        "light-grey": "#EEEEEE",
+        black: "#393E46",
+        grey: "#929AAB",
       },
       fontWeight: {
         thin: "100",

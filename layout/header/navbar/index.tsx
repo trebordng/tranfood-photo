@@ -2,16 +2,11 @@ import React from "react";
 import PhoneNav from "./PhoneNav";
 import NavLinks from "./NavLinks";
 import { useTranslations } from "next-intl";
-
-interface Page {
-  slug: string;
-  name: string;
-  sub: boolean;
-}
+import { PageLink } from "@/type/type";
 
 const Navbar = () => {
   const t = useTranslations("navbar");
-  const pages: Page[] = [
+  const pages: PageLink[] = [
     { slug: "/", name: t("album"), sub: false },
     { slug: "/food", name: t("food"), sub: true },
     { slug: "/drink", name: t("drink"), sub: true },
@@ -27,8 +22,13 @@ const Navbar = () => {
   return (
     <React.Fragment>
       <ul className="hidden xl:inline-block">
-        {pages.map((page: Page) => (
-          <NavLinks key={page.name} slug={page.slug} sub={page.sub} name={page.name} />
+        {pages.map((page: PageLink) => (
+          <NavLinks
+            key={page.name}
+            slug={page.slug}
+            sub={page.sub}
+            name={page.name}
+          />
         ))}
       </ul>
       <PhoneNav />

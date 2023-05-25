@@ -4,13 +4,9 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 import { RiLeafFill } from "react-icons/ri";
+import { PageLink } from "@/type/type";
 
-interface NavLink {
-  slug: string;
-  sub: boolean;
-  name: string;
-}
-const NavLink: React.FC<NavLink> = ({ slug, sub, name }) => {
+const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
   const pathname = usePathname();
 
   return (
