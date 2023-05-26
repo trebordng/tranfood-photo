@@ -34,7 +34,7 @@ const Login = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
       if (authUser) {
-        setLoading(false)
+        setLoading(false);
         router.push("/");
       } else {
         setLoading(true);
@@ -46,7 +46,7 @@ const Login = () => {
   return (
     loading && (
       <Animation>
-        <section className="flex items-center justify-center h-full bg-light-grey rounded-lg">
+        <section className="flex items-center justify-center rounded-lg flex-auto">
           <form
             className="p-16 md:p-24 lg:p-32 xl:p-40 max-w-[calc(100%-16px)] shadow-xl rounded-lg bg-white"
             onSubmit={emailLogin}

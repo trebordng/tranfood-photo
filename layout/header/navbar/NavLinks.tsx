@@ -8,15 +8,15 @@ import { PageLink } from "@/type/type";
 
 const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
   const pathname = usePathname();
-
+  
   return (
     <li
       className={`font-antic-didone text-xl tracking-wider py-8 flex items-center gap-4 ${
         sub && "ml-24"
       } ${
         pathname === slug ||
-        pathname === "vie" + slug ||
-        pathname === slug + "vie"
+        pathname === "/vi" + slug ||
+        pathname === slug + "vi"
           ? "text-black pointer-events-none font-800"
           : "text-grey  font-600"
       } hover:text-black`}
@@ -32,8 +32,8 @@ const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
         {name}
       </Link>{" "}
       {(pathname === slug ||
-        pathname === "vie" + slug ||
-        pathname === slug + "vie") && (
+        pathname === "/vi" + slug ||
+        pathname === slug + "vi") && (
         <RiLeafFill className="text-xl text-black" />
       )}
     </li>
