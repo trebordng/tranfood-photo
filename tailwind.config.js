@@ -17,8 +17,8 @@ module.exports = {
       colors: {
         white:"#F6F4F4",
         orange:"#FF7517",
-        black: "#2C2727",
-        grey: "#777474",
+        black: "#020202",
+        grey: "#595959",
       },
       fontWeight: {
         thin: "100",

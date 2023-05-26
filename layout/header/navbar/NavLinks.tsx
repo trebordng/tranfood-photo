@@ -8,7 +8,7 @@ import { PageLink } from "@/type/type";
 
 const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
   const pathname = usePathname();
-  
+
   return (
     <li
       className={`font-antic-didone text-xl tracking-wider py-8 flex items-center gap-4 ${
@@ -17,8 +17,8 @@ const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
         pathname === slug ||
         pathname === "/vi" + slug ||
         pathname === slug + "vi"
-          ? "text-black pointer-events-none font-800"
-          : "text-grey  font-600"
+          ? "text-black pointer-events-none font-semibold"
+          : "text-grey  font-light"
       } hover:text-black`}
     >
       <Link
