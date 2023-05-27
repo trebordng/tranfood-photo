@@ -26,6 +26,7 @@ const ImageList: React.FC<ImageList> = ({ list }) => {
             style={{ objectFit: "cover" }}
             className="h-full w-full hover:blur-sm transition opacity-80 hover:opacity-1"
             placeholder="blur"
+            loading="lazy"
             blurDataURL={image?.blurDataURL}
           />
         </div>
