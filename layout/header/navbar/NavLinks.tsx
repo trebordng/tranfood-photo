@@ -18,8 +18,8 @@ const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
         pathname === "/vi" + slug ||
         pathname === slug + "vi"
           ? "text-black pointer-events-none font-semibold"
-          : "text-grey  font-light"
-      } hover:text-black`}
+          : "text-gray-1 font-light hover:text-black"
+      } `}
     >
       <Link
         aria-label={slug}

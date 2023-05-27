@@ -4,5 +4,13 @@ const withNextIntl = require("next-intl/plugin")(
 );
 
 module.exports = withNextIntl({
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+      },
+    ],
+  },
   // Other Next.js configuration ...
 });

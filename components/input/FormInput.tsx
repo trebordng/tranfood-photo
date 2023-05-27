@@ -28,7 +28,7 @@ const FormInput: React.FC<FormInput> = ({
         placeholder={placeholder}
         type={type}
         onChange={(e) => onChange(setValue, e.target.value)}
-        className="text-xl appearance-none w-full my-4 p-8 border text-grey shadow-lg rounded-md focus:text-black focus:outline-none focus:shadow-out"
+        className="text-xl appearance-none w-full my-4 p-8 border text-gray-1 shadow-lg rounded-md focus:text-black focus:outline-none focus:shadow-out"
       />
     </div>
   );

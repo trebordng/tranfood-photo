@@ -35,7 +35,7 @@ const Login = () => {
     const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
       if (authUser) {
         setLoading(false);
-        router.push("/");
+        router.push("/uploadImage");
       } else {
         setLoading(true);
       }
@@ -67,7 +67,7 @@ const Login = () => {
             />
             <button
               type="submit"
-              className="relative top-0 hover:-top-8 text-xl mt-16 bg-orange text-white focus:outline-none py-8 px-24 rounded-md font-bold transition-all duration-200"
+              className="relative top-0 hover:-top-8 mt-16 bg-orange-500 text-black font-semibold focus:outline-none py-8 px-24 rounded-md w-full transition-all duration-200"
             >
               Sign In
             </button>

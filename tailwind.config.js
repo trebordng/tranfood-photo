@@ -15,10 +15,16 @@ module.exports = {
     },
     extend: {
       colors: {
-        white:"#F6F4F4",
-        orange:"#FF7517",
+        white: "#F6F4F4",
+        orange: {
+          500: "rgba(	255, 117, 23,0.5)",
+          1: "rgb(	255, 117, 23)",
+        },
         black: "#020202",
-        grey: "#595959",
+        gray: {
+         100: "rgba(89, 89, 89,0.1)",
+          1: "rgb(	89, 89, 89)",
+        },
       },
       fontWeight: {
         thin: "100",
