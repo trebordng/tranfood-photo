@@ -16,7 +16,7 @@ const ImageList: React.FC<ImageList> = ({ list }) => {
 
   return (
     <article className="flex flex-col md:flex-wrap md:flex-row gap-16 md:gap-24 flex-auto overflow-x-hidden">
-      {list?.map((image: ImageObject,index) => (
+      {list?.map((image: ImageObject) => (
         <div key={image.title} className="md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] min-h-416 xl:min-h-512 rounded-lg overflow-hidden relative">
           <Image
             src={typeof image.url === "string" ? image.url : ""}
