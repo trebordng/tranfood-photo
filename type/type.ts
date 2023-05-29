@@ -1,3 +1,4 @@
+import { Timestamp } from "firebase/firestore";
 import { StaticImageData } from "next/image";
 import { IconType } from "react-icons";
 
@@ -16,4 +17,12 @@ export interface PageLink {
 export interface MediaIcon {
   slug: string;
   icon?: IconType;
+}
+
+export interface ImageObject {
+  id: string;
+  title: string;
+  url: string;
+  timestamp: Timestamp;
+  blurDataURL: string;
 }

@@ -15,6 +15,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        blue:"#3A9BDC",
         white: "#F6F4F4",
         purple: {
           500: "rgba(134,133,239,0.5)",

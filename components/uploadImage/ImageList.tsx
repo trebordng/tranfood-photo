@@ -2,31 +2,27 @@
 
 import { Timestamp } from "firebase/firestore";
 import Image from "next/image";
-import React from "react";
+import React, { SetStateAction } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "@/utils/firebase";
+import { ImageObject } from "@/type/type";
 
 interface ImageList {
-  list: ImageObject[];
-  getList: () => void;
-  currentList:string;
+  listObject: ImageObject[];
+  activeList: string[];
+  setActiveList: React.Dispatch<SetStateAction<string[]>>;
+  currentList: string;
 }
 
-interface ImageObject {
-  id:string;
-  title: string;
-  url: string;
-  timestamp: Timestamp;
-  blurDataURL: string;
-}
 const ImageList: React.FC<ImageList> = ({
-  list,
-  getList,
-  currentList
+  listObject,
+  currentList,
+  activeList,
+  setActiveList,
 }) => {
-  const deleteImage = (image:ImageObject) => {
+  const deleteImage = (image: ImageObject) => {
     const storage = getStorage();
     const desertRef = ref(storage, image.url);
     // Delete the file
@@ -39,12 +35,24 @@ const ImageList: React.FC<ImageList> = ({
       });
   };
 
+  const setActiveImage = (image: ImageObject) => {
+    if (activeList.includes(image.title)) {
+      setActiveList((prevList) =>
+        prevList.filter((title) => title !== image.title)
+      );
+    } else {
+      setActiveList((prevList) => [...prevList, image.title]);
+    }
+  };
   return (
     <article className="flex flex-col md:flex-wrap md:flex-row gap-16 md:gap-24 flex-auto overflow-x-hidden">
-      {list?.map((image: ImageObject) => (
+      {listObject?.map((image: ImageObject) => (
         <div
+          onClick={() => setActiveImage(image)}
           key={image.title}
-          className="md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] min-h-416 xl:min-h-512 rounded-lg overflow-hidden relative"
+          className={`${
+            activeList.includes(image.title) && "border-4 border-purple-1"
+          } md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] min-h-416 xl:min-h-512 rounded-lg overflow-hidden relative cursor-pointer`}
         >
           <Image
             src={typeof image.url === "string" ? image.url : ""}

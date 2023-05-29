@@ -18,21 +18,24 @@ import {
 import imageToBase64 from "image-to-base64/browser";
 import { ListState } from "@/context/CanvasContext";
 import Loading from "@/components/loading";
+import ListTab from "@/components/uploadImage/ListTab";
+import UploadButton from "@/components/uploadImage/UtilButtons";
+import UtilButton from "@/components/uploadImage/UtilButtons";
 
 const UploadImage = () => {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [currentList, setCurrentList] = useState("Food");
   const lists: string[] = ["Food", "Drink", "Action", "Lifestyle"];
-  const router = useRouter();
-  const { lists: ListObject, setLists } = ListState();
-
+  const { lists: listObject, setLists } = ListState();
+  const [activeList, setActiveList] = useState<string[]>([]);
+  // get list from firebase to render
   const getList = async () => {
     setLoading(false);
     const collectionRef = collection(db, currentList);
     const q = query(collectionRef, orderBy("timestamp", "desc"));
     const getList = onSnapshot(q, (snapshot) => {
-      console.log("1");
       setLists(
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -42,6 +45,7 @@ const UploadImage = () => {
     return getList;
   };
 
+  //user authentication
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
       if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
@@ -55,45 +59,41 @@ const UploadImage = () => {
     return unsubscribe;
   }, [currentList]);
 
+  //upload images to firebase
   const uploadImage = async (event: any) => {
     setLoading(false);
     const files = event.target.files;
     for (let index = 0; index < files.length; index++) {
-      imageToBase64(URL.createObjectURL(files[index])).then(
-        (base64Url: string) => {
-          // Create a new Image object with the same source as the original image
-          const image = new Image();
-          const storage = getStorage();
-          const storageRef = ref(storage, files[index].name);
-
-          // 'file' comes from the Blob or File API
-          uploadBytes(storageRef, files[index]).then((baseImage) => {
-            getDownloadURL(baseImage.ref).then((url) => {
-              //load image to create a blur image
-              image.onload = async () => {
-                const canvas = document.createElement("canvas");
-                let width = image.width;
-                let height = image.height;
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext("2d");
-                ctx?.drawImage(image, 0, 0, width, height);
-                // create blur image 0.1 quality
-                const blurDataURL = await canvas.toDataURL("image/jpeg", 0.1);
-                const collectionRef = collection(db, currentList);
-                addDoc(collectionRef, {
-                  timestamp: serverTimestamp(),
-                  url: url,
-                  title: files[index].name.slice(0, -4),
-                  blurDataURL: blurDataURL,
-                });
-                setLoading(true);
-              };
-              image.src = URL.createObjectURL(files[index]);
+      // Create a new Image object with the same source as the original image
+      const image = new Image();
+      const storage = getStorage();
+      const storageRef = ref(storage, files[index].name);
+      // 'file' comes from the Blob or File API
+      uploadBytes(storageRef, files[index]).then((baseImage) => {
+        getDownloadURL(baseImage.ref).then((url) => {
+          //load image to create a blur image
+          image.onload = async () => {
+            const canvas = document.createElement("canvas");
+            let width = image.width;
+            let height = image.height;
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx?.drawImage(image, 0, 0, width, height);
+            // create blur image 0.1 quality
+            const blurDataURL = await canvas.toDataURL("image/jpeg", 0.1);
+            const collectionRef = collection(db, currentList);
+            addDoc(collectionRef, {
+              timestamp: serverTimestamp(),
+              url: url,
+              title: files[index].name.slice(0, -4),
+              blurDataURL: blurDataURL,
             });
-          });
-        }
-      );
+            setLoading(true);
+          };
+          image.src = URL.createObjectURL(files[index]);
+        });
+      });
     }
   };
 
@@ -102,54 +102,41 @@ const UploadImage = () => {
       <Animation>
         <section className="grow flex flex-col">
           <article className="mb-16 md:mb-24 lg:mb-32 xl:mb-40">
+            {/* Switching Tabs */}
             <div className="flex gap-16 justify-center flex-wrap">
               {lists.map((list) => (
-                <button
+                <ListTab
                   key={list}
-                  id={list + `-upload-tab`}
-                  onClick={() => {
-                    setCurrentList(list);
-                  }}
-                  className={`transition flex-auto shadow-xl px-24 py-8 rounded-md font-semibold text-center border-gray-100 border  ${
-                    currentList === list
-                      ? "bg-purple-1 text-white pointer-events-none"
-                      : "cursor-pointer hover:bg-gray-100"
-                  } `}
-                >
-                  {list}
-                </button>
+                  list={list}
+                  currentList={currentList}
+                  setCurrentList={setCurrentList}
+                />
               ))}
             </div>
-            {currentList !== "Blogs" && currentList !== "Recipes" ? (
-              <div className="mt-16 md:mt-24 lg:mt-32 xl:mt-40">
-                <input
-                  type="file"
-                  id="file-button"
-                  hidden
-                  onChange={(event) => uploadImage(event)}
-                  accept={"image/*"}
-                  multiple
-                />
-                <label
-                  htmlFor="file-button"
-                  className="hover:bg-gray-100 cursor-pointer py-8 px-24 shadow-xl rounded-md border-gray-100 border inline-block"
-                >
-                  Upload files
-                </label>
-              </div>
-            ) : (
-              <></>
-            )}
+            {/* Upload Button */}
+            <UtilButton
+              listObject={listObject[currentList]}
+              activeList={activeList}
+              setActiveList={setActiveList}
+              currentList={currentList}
+              upload={
+                currentList !== "Blogs" && currentList !== "Recipes"
+                  ? uploadImage
+                  : uploadImage
+              }
+            />
           </article>
+          {/* Display Image and Loading interface */}
           {!loading ? (
             <Loading />
           ) : (
             currentList !== "Blogs" &&
             currentList !== "Recipes" && (
               <ImageList
-                list={ListObject[currentList]}
-                getList={getList}
+                listObject={listObject[currentList]}
                 currentList={currentList}
+                activeList={activeList}
+                setActiveList={setActiveList}
               />
             )
           )}
