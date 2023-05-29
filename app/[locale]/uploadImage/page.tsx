@@ -58,47 +58,72 @@ const UploadImage = () => {
     return unsubscribe;
   }, [currentList]);
 
-  //upload images to firebase
-  const uploadImage = (event: any) => {
-    setLoading(false);
-    const files = event.target.files;
-    for (let index = 0; index < files.length; index++) {
-      // Create a new Image object with the same source as the original image
-      listObject[currentList].forEach(async (image: ImageObject) => {
-        if (image.title === files[index].name) {
-          prompt("Cannot upload image with same name:" + files[index].name);
-        } else {
-          const image = new Image();
-          const storage = getStorage();
-          const storageRef = ref(storage, files[index].name);
-          // 'file' comes from the Blob or File API
-          await uploadBytes(storageRef, files[index]).then((baseImage) => {
-            getDownloadURL(baseImage.ref).then((url) => {
-              //load image to create a blur image
-              image.onload = async () => {
-                const canvas = document.createElement("canvas");
-                let width = image.width;
-                let height = image.height;
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext("2d");
-                ctx?.drawImage(image, 0, 0, width, height);
-                // create blur image 0.1 quality
-                const blurDataURL = await canvas.toDataURL("image/jpeg", 0.1);
-                const collectionRef = collection(db, currentList);
-                await addDoc(collectionRef, {
-                  timestamp: serverTimestamp(),
-                  url: url,
-                  title: files[index].name.slice(0, -4),
-                  blurDataURL: blurDataURL,
-                });
-                setLoading(true);
-              };
-              image.src = URL.createObjectURL(files[index]);
-            });
-          });
+  const checkName = async (name: string) => {
+    let counter: number = 0;
+    if (listObject[currentList].length === 0) {
+      return false;
+    } else {
+      await listObject[currentList].forEach((image: ImageObject) => {
+        if (image.title === name) {
+          counter = counter + 1;
         }
       });
+      if (counter === 0) {
+        console.log("false");
+        return false;
+      } else {
+        alert(name + " already exists");
+        return true;
+      }
+    }
+  };
+
+  //upload images to firebase
+  const uploadImage = async (event: any) => {
+    const files = event.target.files;
+    for (let index = 0; index < files.length; index++) {
+      if (index === 0) {
+        setLoading(false);
+      }
+      // Create a new Image object with the same source as the original image
+      const image = new Image();
+      const storage = getStorage();
+      const storageRef = ref(storage, files[index].name);
+      const alreadyUploaded = await checkName(files[index].name.slice(0, -4));
+      if (!alreadyUploaded) {
+        // 'file' comes from the Blob or File API
+        await uploadBytes(storageRef, files[index]).then((baseImage) => {
+          getDownloadURL(baseImage.ref).then((url) => {
+            //load image to create a blur image
+            image.onload = () => {
+              const canvas = document.createElement("canvas");
+              let width = image.width;
+              let height = image.height;
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext("2d");
+              ctx?.drawImage(image, 0, 0, width, height);
+              // create blur image 0.1 quality
+              const blurDataURL = canvas.toDataURL("image/jpeg", 0.1);
+              const collectionRef = collection(db, currentList);
+              addDoc(collectionRef, {
+                timestamp: serverTimestamp(),
+                url: url,
+                title: files[index].name.slice(0, -4),
+                blurDataURL: blurDataURL,
+              });
+              if (index === files.length - 1) {
+                event.target.value=''
+                setLoading(true);
+              }
+            };
+            image.src = URL.createObjectURL(files[index]);
+          });
+        });
+      } else if (index === files.length - 1) {
+        event.target.value=''
+        setLoading(true);
+      }
     }
   };
 

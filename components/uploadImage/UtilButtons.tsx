@@ -47,7 +47,7 @@ const UtilButton: React.FC<UtilButton> = ({
   };
 
   const handleUpload = useCallback(
-    (event: React.ChangeEvent) => {
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
       // call the upload function with the event argument
       upload(event);
     },
@@ -60,7 +60,9 @@ const UtilButton: React.FC<UtilButton> = ({
         type="file"
         id="file-button"
         hidden
-        onChange={handleUpload}
+        onChange={async (event: React.ChangeEvent<HTMLInputElement>) => {
+          await upload(event);
+        }}
         accept={"image/*"}
         multiple
       />
