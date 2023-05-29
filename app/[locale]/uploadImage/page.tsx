@@ -69,7 +69,7 @@ const UploadImage = () => {
       const storage = getStorage();
       const storageRef = ref(storage, files[index].name);
       // 'file' comes from the Blob or File API
-      uploadBytes(storageRef, files[index]).then((baseImage) => {
+      await uploadBytes(storageRef, files[index]).then((baseImage) => {
         getDownloadURL(baseImage.ref).then((url) => {
           //load image to create a blur image
           image.onload = async () => {
@@ -83,7 +83,7 @@ const UploadImage = () => {
             // create blur image 0.1 quality
             const blurDataURL = await canvas.toDataURL("image/jpeg", 0.1);
             const collectionRef = collection(db, currentList);
-            addDoc(collectionRef, {
+            await addDoc(collectionRef, {
               timestamp: serverTimestamp(),
               url: url,
               title: files[index].name.slice(0, -4),
