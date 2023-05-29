@@ -69,6 +69,7 @@ const UploadImage = () => {
           // 'file' comes from the Blob or File API
           uploadBytes(storageRef, files[index]).then((baseImage) => {
             getDownloadURL(baseImage.ref).then((url) => {
+              //load image to create a blur image
               image.onload = async () => {
                 const canvas = document.createElement("canvas");
                 let width = image.width;
@@ -77,6 +78,7 @@ const UploadImage = () => {
                 canvas.height = height;
                 const ctx = canvas.getContext("2d");
                 ctx?.drawImage(image, 0, 0, width, height);
+                // create blur image 0.1 quality
                 const blurDataURL = await canvas.toDataURL("image/jpeg", 0.1);
                 const collectionRef = collection(db, currentList);
                 addDoc(collectionRef, {
@@ -144,7 +146,11 @@ const UploadImage = () => {
           ) : (
             currentList !== "Blogs" &&
             currentList !== "Recipes" && (
-              <ImageList list={ListObject[currentList]} />
+              <ImageList
+                list={ListObject[currentList]}
+                getList={getList}
+                currentList={currentList}
+              />
             )
           )}
         </section>
