@@ -28,6 +28,7 @@ const UploadImage = () => {
   const { lists: ListObject, setLists } = ListState();
 
   const getList = async () => {
+    setLoading(false);
     const collectionRef = collection(db, currentList);
     const q = query(collectionRef, orderBy("timestamp", "desc"));
     const getList = onSnapshot(q, (snapshot) => {
@@ -52,7 +53,7 @@ const UploadImage = () => {
       }
     });
     return unsubscribe;
-  }, []);
+  }, [currentList]);
 
   const uploadImage = async (event: any) => {
     setLoading(false);
@@ -81,7 +82,7 @@ const UploadImage = () => {
                 addDoc(collectionRef, {
                   timestamp: serverTimestamp(),
                   url: url,
-                  title: files[index].name,
+                  title: files[index].name.slice(0, -4),
                   blurDataURL: blurDataURL,
                 });
                 setLoading(true);

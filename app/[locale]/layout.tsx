@@ -30,7 +30,7 @@ const LocaleLayout: React.FC<Layout> = ({ children, params }) => {
 
   return (
     <html lang={locale}>
-      <body className="bg-white p-16 md:p-24 lg:p-32 xl:p-40 gap-16 md:gap-24 lg:gap-32 xl:gap-40 flex flex-col xl:flex-row min-h-screen overflow-y-auto overflow-x-hidden flex-wrap max-w-[100vw]">
+      <body className="bg-white p-16 md:p-24 lg:p-32 xl:p-40 gap-16 md:gap-24 lg:gap-32 xl:gap-40 flex flex-col xl:flex-row min-h-screen overflow-y-auto overflow-x-hidden flex-wrap xl:flex-nowrap max-w-[100vw]">
         <Header />
         {children}
       </body>
