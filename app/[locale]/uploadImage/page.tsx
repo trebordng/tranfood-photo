@@ -15,12 +15,11 @@ import {
   query,
   serverTimestamp,
 } from "firebase/firestore";
-import imageToBase64 from "image-to-base64/browser";
 import { ListState } from "@/context/CanvasContext";
 import Loading from "@/components/loading";
 import ListTab from "@/components/uploadImage/ListTab";
-import UploadButton from "@/components/uploadImage/UtilButtons";
 import UtilButton from "@/components/uploadImage/UtilButtons";
+import { ImageObject } from "@/type/type";
 
 const UploadImage = () => {
   const router = useRouter();
@@ -60,39 +59,45 @@ const UploadImage = () => {
   }, [currentList]);
 
   //upload images to firebase
-  const uploadImage = async (event: any) => {
+  const uploadImage = (event: any) => {
     setLoading(false);
     const files = event.target.files;
     for (let index = 0; index < files.length; index++) {
       // Create a new Image object with the same source as the original image
-      const image = new Image();
-      const storage = getStorage();
-      const storageRef = ref(storage, files[index].name);
-      // 'file' comes from the Blob or File API
-      await uploadBytes(storageRef, files[index]).then((baseImage) => {
-        getDownloadURL(baseImage.ref).then((url) => {
-          //load image to create a blur image
-          image.onload = async () => {
-            const canvas = document.createElement("canvas");
-            let width = image.width;
-            let height = image.height;
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext("2d");
-            ctx?.drawImage(image, 0, 0, width, height);
-            // create blur image 0.1 quality
-            const blurDataURL = await canvas.toDataURL("image/jpeg", 0.1);
-            const collectionRef = collection(db, currentList);
-            await addDoc(collectionRef, {
-              timestamp: serverTimestamp(),
-              url: url,
-              title: files[index].name.slice(0, -4),
-              blurDataURL: blurDataURL,
+      listObject[currentList].forEach(async (image: ImageObject) => {
+        if (image.title === files[index].name) {
+          prompt("Cannot upload image with same name:" + files[index].name);
+        } else {
+          const image = new Image();
+          const storage = getStorage();
+          const storageRef = ref(storage, files[index].name);
+          // 'file' comes from the Blob or File API
+          await uploadBytes(storageRef, files[index]).then((baseImage) => {
+            getDownloadURL(baseImage.ref).then((url) => {
+              //load image to create a blur image
+              image.onload = async () => {
+                const canvas = document.createElement("canvas");
+                let width = image.width;
+                let height = image.height;
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+                ctx?.drawImage(image, 0, 0, width, height);
+                // create blur image 0.1 quality
+                const blurDataURL = await canvas.toDataURL("image/jpeg", 0.1);
+                const collectionRef = collection(db, currentList);
+                await addDoc(collectionRef, {
+                  timestamp: serverTimestamp(),
+                  url: url,
+                  title: files[index].name.slice(0, -4),
+                  blurDataURL: blurDataURL,
+                });
+                setLoading(true);
+              };
+              image.src = URL.createObjectURL(files[index]);
             });
-            setLoading(true);
-          };
-          image.src = URL.createObjectURL(files[index]);
-        });
+          });
+        }
       });
     }
   };

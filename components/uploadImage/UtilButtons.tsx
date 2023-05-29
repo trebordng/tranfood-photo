@@ -26,6 +26,9 @@ const UtilButton: React.FC<UtilButton> = ({
     // Delete the file
     deleteObject(desertRef)
       .then(async () => {
+        setActiveList((prevList) =>
+          prevList.filter((title) => title !== image.title)
+        );
         await deleteDoc(doc(db, currentList, image.id));
       })
       .catch((error) => {
@@ -37,9 +40,6 @@ const UtilButton: React.FC<UtilButton> = ({
     activeList.forEach((imageTitle) => {
       listObject.forEach((image) => {
         if (image.title === imageTitle) {
-          setActiveList((prevList) =>
-            prevList.filter((title) => title !== image.title)
-          );
           deleteImage(image);
         }
       });

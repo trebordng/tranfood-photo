@@ -28,6 +28,9 @@ const ImageList: React.FC<ImageList> = ({
     // Delete the file
     deleteObject(desertRef)
       .then(async () => {
+        setActiveList((prevList) =>
+          prevList.filter((title) => title !== image.title)
+        );
         await deleteDoc(doc(db, currentList, image.id));
       })
       .catch((error) => {
