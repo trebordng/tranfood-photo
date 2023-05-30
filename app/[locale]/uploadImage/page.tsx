@@ -20,6 +20,7 @@ import Loading from "@/components/loading";
 import ListTab from "@/components/uploadImage/ListTab";
 import UtilButton from "@/components/uploadImage/UtilButtons";
 import { ImageObject } from "@/type/type";
+import { unsubscribe } from "diagnostics_channel";
 
 const UploadImage = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const UploadImage = () => {
   const [totalCounter, setTotalCounter] = useState<number | null>(null);
 
   // get list from firebase to render
-  const getList = async () => {
+  const getList = async (loading?: string) => {
     const collectionRef = collection(db, currentList);
     const q = query(collectionRef, orderBy("timestamp", "desc"));
     const getList = await onSnapshot(q, (snapshot) => {
@@ -41,7 +42,7 @@ const UploadImage = () => {
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-      if (uploadCounter === null) {
+      if (loading) {
         setLoading(true);
       }
     });
@@ -56,7 +57,7 @@ const UploadImage = () => {
         if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
           setLoading(false);
           setUser(authUser);
-          getList();
+          getList("loading");
         } else {
           setUser(null);
           router.push("/login");
