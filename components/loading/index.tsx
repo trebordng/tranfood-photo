@@ -3,11 +3,12 @@ import React from "react";
 interface Loading {
   uploadCounter: number | null;
   totalCounter: number | null;
+  color: string;
 }
-const Loading: React.FC<Loading> = ({ uploadCounter, totalCounter }) => {
+const Loading: React.FC<Loading> = ({ uploadCounter, totalCounter, color }) => {
   return (
     <div className="grow flex justify-center items-center flex-col">
-      <svg className="animate-spin h-96 w-96 text-purple-1" viewBox="0 0 24 24">
+      <svg className={`animate-spin h-96 w-96 ${color}`} viewBox="0 0 24 24">
         <path
           className="opacity-1"
           fill="currentColor"

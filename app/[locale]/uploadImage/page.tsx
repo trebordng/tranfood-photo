@@ -167,6 +167,7 @@ const UploadImage = () => {
           {/* Display Image and Loading interface */}
           {!loading || !uploading ? (
             <Loading
+              color={'text-purple-1'}
               uploadCounter={uploadCounter}
               totalCounter={totalCounter}
             />

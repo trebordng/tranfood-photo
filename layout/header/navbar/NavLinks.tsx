@@ -11,7 +11,7 @@ const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
 
   return (
     <li
-      className={`font-antic-didone text-xl tracking-wider py-8 flex items-center gap-4 ${
+      className={`whitespace-nowrap font-antic-didone text-xl tracking-wider py-8 flex items-center gap-4 ${
         sub && "ml-24"
       } ${
         pathname === slug ||
@@ -31,11 +31,7 @@ const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
       >
         {name}
       </Link>{" "}
-      {(pathname === slug ||
-        pathname === "/vi" + slug ||
-        pathname === slug + "vi") && (
-        <RiLeafFill className="text-xl text-black" />
-      )}
+     
     </li>
   );
 };

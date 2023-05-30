@@ -26,3 +26,10 @@ export interface ImageObject {
   timestamp: Timestamp;
   blurDataURL: string;
 }
+
+export interface SnapShotImage {
+  title: string;
+  url: string;
+  timestamp: Timestamp;
+  blurDataURL: string;
+}
