@@ -41,7 +41,11 @@ const UploadImage = () => {
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
+      if (uploadCounter === null) {
+        setLoading(true);
+      }
     });
+
     return getList;
   };
 
@@ -52,10 +56,7 @@ const UploadImage = () => {
         if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
           setLoading(false);
           setUser(authUser);
-          await getList();
-          setTimeout(() => {
-            setLoading(true);
-          }, 100);
+          getList();
         } else {
           setUser(null);
           router.push("/login");
