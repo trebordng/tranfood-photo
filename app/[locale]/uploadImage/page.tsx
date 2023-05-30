@@ -36,7 +36,7 @@ const UploadImage = () => {
   const getList = async () => {
     const collectionRef = collection(db, currentList);
     const q = query(collectionRef, orderBy("timestamp", "desc"));
-    const getList = onSnapshot(q, (snapshot) => {
+    const getList = await onSnapshot(q, (snapshot) => {
       setLists(
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -47,18 +47,21 @@ const UploadImage = () => {
 
   //user authentication
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
-      if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
-        setLoading(false);
-        setUser(authUser);
-        getList().then(() => {
-          setLoading(true);
-        });
-      } else {
-        setUser(null);
-        router.push("/login");
+    const unsubscribe = auth.onAuthStateChanged(
+      async (authUser: User | null) => {
+        if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
+          setLoading(false);
+          setUser(authUser);
+          await getList();
+          setTimeout(() => {
+            setLoading(true);
+          }, 100);
+        } else {
+          setUser(null);
+          router.push("/login");
+        }
       }
-    });
+    );
     return unsubscribe;
   }, [currentList]);
 
