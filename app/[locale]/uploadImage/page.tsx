@@ -42,7 +42,7 @@ const UploadImage = () => {
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-      if (isLoading) {
+      if (isLoading === "loading") {
         setLoading(true);
       }
     });
