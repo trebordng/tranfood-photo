@@ -2,7 +2,6 @@ import Animation from "@/layout/animation";
 import { db } from "@/utils/firebase";
 import {
   DocumentData,
-  SnapshotOptions,
   collection,
   getDocs,
   orderBy,

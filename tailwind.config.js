@@ -21,7 +21,7 @@ module.exports = {
           500: "rgba(210, 4, 45,0.5)",
           1: "rgb(210, 4, 45)",
         },
-        blue: "#29c5f6",
+        blue: "#77CCFF",
         white: "#F6F4F4",
         purple: {
           500: "rgba(134,133,239,0.5)",
