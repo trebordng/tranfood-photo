@@ -29,8 +29,8 @@ const UploadImage = () => {
   const lists: string[] = ["Food", "Drink", "Action", "Lifestyle"];
   const { lists: listObject, setLists } = ListState();
   const [activeList, setActiveList] = useState<string[]>([]);
-  const [uploadCounter,setUploadCounter] = useState<number|null>(null)
-  const [totalCounter,setTotalCounter] = useState<number|null>(null)
+  const [uploadCounter, setUploadCounter] = useState<number | null>(null);
+  const [totalCounter, setTotalCounter] = useState<number | null>(null);
 
   // get list from firebase to render
   const getList = async () => {
@@ -47,12 +47,12 @@ const UploadImage = () => {
 
   //user authentication
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (authUser: User | null) => {
+    const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
       if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
         setLoading(false);
         setUser(authUser);
-        await getList();
         setLoading(true);
+        getList().then(() => {});
       } else {
         setUser(null);
         router.push("/login");
@@ -88,7 +88,7 @@ const UploadImage = () => {
       if (index === 0) {
         setLoading(false);
       }
-      setUploadCounter(index+1)
+      setUploadCounter(index + 1);
       // Create a new Image object with the same source as the original image
       const image = new Image();
       const storage = getStorage();
@@ -117,17 +117,17 @@ const UploadImage = () => {
                 blurDataURL: blurDataURL,
               });
               if (index === files.length - 1) {
-                console.log(index)
-                event.target.value=''
+                console.log(index);
+                event.target.value = "";
                 setLoading(true);
-                setUploadCounter(null)
+                setUploadCounter(null);
               }
             };
             image.src = URL.createObjectURL(files[index]);
           });
         });
       } else if (index === files.length - 1) {
-        event.target.value=''
+        event.target.value = "";
         setLoading(true);
       }
     }
@@ -164,7 +164,10 @@ const UploadImage = () => {
           </article>
           {/* Display Image and Loading interface */}
           {!loading ? (
-            <Loading uploadCounter={uploadCounter} totalCounter={totalCounter}/>
+            <Loading
+              uploadCounter={uploadCounter}
+              totalCounter={totalCounter}
+            />
           ) : (
             currentList !== "Blogs" &&
             currentList !== "Recipes" && (
