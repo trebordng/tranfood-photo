@@ -29,9 +29,11 @@ const UploadImage = () => {
   const lists: string[] = ["Food", "Drink", "Action", "Lifestyle"];
   const { lists: listObject, setLists } = ListState();
   const [activeList, setActiveList] = useState<string[]>([]);
+  const [uploadCounter,setUploadCounter] = useState<number|null>(null)
+  const [totalCounter,setTotalCounter] = useState<number|null>(null)
+
   // get list from firebase to render
   const getList = async () => {
-    setLoading(false);
     const collectionRef = collection(db, currentList);
     const q = query(collectionRef, orderBy("timestamp", "desc"));
     const getList = onSnapshot(q, (snapshot) => {
@@ -39,17 +41,18 @@ const UploadImage = () => {
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-      setLoading(true);
     });
     return getList;
   };
 
   //user authentication
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
+    const unsubscribe = auth.onAuthStateChanged(async (authUser: User | null) => {
       if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
+        setLoading(false);
         setUser(authUser);
-        getList();
+        await getList();
+        setLoading(true);
       } else {
         setUser(null);
         router.push("/login");
@@ -69,7 +72,6 @@ const UploadImage = () => {
         }
       });
       if (counter === 0) {
-        console.log("false");
         return false;
       } else {
         alert(name + " already exists");
@@ -81,10 +83,12 @@ const UploadImage = () => {
   //upload images to firebase
   const uploadImage = async (event: any) => {
     const files = event.target.files;
+    setTotalCounter(files.length);
     for (let index = 0; index < files.length; index++) {
       if (index === 0) {
         setLoading(false);
       }
+      setUploadCounter(index+1)
       // Create a new Image object with the same source as the original image
       const image = new Image();
       const storage = getStorage();
@@ -113,8 +117,10 @@ const UploadImage = () => {
                 blurDataURL: blurDataURL,
               });
               if (index === files.length - 1) {
+                console.log(index)
                 event.target.value=''
                 setLoading(true);
+                setUploadCounter(null)
               }
             };
             image.src = URL.createObjectURL(files[index]);
@@ -158,7 +164,7 @@ const UploadImage = () => {
           </article>
           {/* Display Image and Loading interface */}
           {!loading ? (
-            <Loading />
+            <Loading uploadCounter={uploadCounter} totalCounter={totalCounter}/>
           ) : (
             currentList !== "Blogs" &&
             currentList !== "Recipes" && (

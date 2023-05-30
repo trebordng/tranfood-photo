@@ -37,13 +37,15 @@ const UtilButton: React.FC<UtilButton> = ({
   };
 
   const deleteImages = () => {
-    activeList.forEach((imageTitle) => {
-      listObject.forEach((image) => {
-        if (image.title === imageTitle) {
-          deleteImage(image);
-        }
+    if (confirm("Are you sure you want to delete these files?")) {
+      activeList.forEach((imageTitle) => {
+        listObject.forEach((image) => {
+          if (image.title === imageTitle) {
+            deleteImage(image);
+          }
+        });
       });
-    });
+    }
   };
 
   const handleUpload = useCallback(
@@ -55,7 +57,7 @@ const UtilButton: React.FC<UtilButton> = ({
   );
 
   return (
-    <div className="mt-16 md:mt-24 lg:mt-32 xl:mt-40">
+    <div className="mt-16 md:mt-24 lg:mt-32 xl:mt-40 flex flex-wrap gap-16">
       <input
         type="file"
         id="file-button"
@@ -76,8 +78,8 @@ const UtilButton: React.FC<UtilButton> = ({
         disabled={activeList.length === 0}
         onClick={deleteImages}
         className={` ${
-          activeList.length === 0 && "pointer-events-none opacity-50"
-        } ml-16 hover:bg-gray-100 cursor-pointer py-8 px-24 shadow-xl rounded-md border-gray-100 border`}
+          activeList.length === 0 && "pointer-events-none opacity-50 bg-red-500"
+        } hover:bg-red-500 cursor-pointer py-8 px-24 shadow-xl rounded-md bg-red-1 border-red-100 border text-white`}
       >
         Remove Selected
       </button>

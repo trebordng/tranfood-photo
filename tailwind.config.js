@@ -15,7 +15,12 @@ module.exports = {
     },
     extend: {
       colors: {
-        blue:"#3A9BDC",
+        red: {
+          100: "rgba(210, 4, 45,0.1)",
+          500: "rgba(210, 4, 45,0.5)",
+          1: "rgb(210, 4, 45)",
+        },
+        blue: "#3A9BDC",
         white: "#F6F4F4",
         purple: {
           500: "rgba(134,133,239,0.5)",

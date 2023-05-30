@@ -48,7 +48,7 @@ const ImageList: React.FC<ImageList> = ({
     }
   };
   return (
-    <article className="flex flex-col md:flex-wrap md:flex-row gap-16 md:gap-24 flex-auto overflow-x-hidden">
+    <article className="flex flex-col md:flex-wrap md:flex-row gap-16 md:gap-24 flex-auto max-w-full">
       {listObject?.map((image: ImageObject) => (
         <div
           onClick={() => setActiveImage(image)}
