@@ -51,8 +51,9 @@ const UploadImage = () => {
       if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
         setLoading(false);
         setUser(authUser);
-        setLoading(true);
-        getList().then(() => {});
+        getList().then(() => {
+          setLoading(true);
+        });
       } else {
         setUser(null);
         router.push("/login");
