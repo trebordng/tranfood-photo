@@ -34,7 +34,7 @@ const UploadImage = () => {
   const [totalCounter, setTotalCounter] = useState<number | null>(null);
 
   // get list from firebase to render
-  const getList = async (loading?: string) => {
+  const getList = async (isLoading?: string) => {
     const collectionRef = collection(db, currentList);
     const q = query(collectionRef, orderBy("timestamp", "desc"));
     const getList = await onSnapshot(q, (snapshot) => {
@@ -42,7 +42,7 @@ const UploadImage = () => {
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-      if (loading) {
+      if (isLoading) {
         setLoading(true);
       }
     });
