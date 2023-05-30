@@ -20,7 +20,6 @@ import Loading from "@/components/loading";
 import ListTab from "@/components/uploadImage/ListTab";
 import UtilButton from "@/components/uploadImage/UtilButtons";
 import { ImageObject } from "@/type/type";
-import { unsubscribe } from "diagnostics_channel";
 
 const UploadImage = () => {
   const router = useRouter();
@@ -32,38 +31,35 @@ const UploadImage = () => {
   const [activeList, setActiveList] = useState<string[]>([]);
   const [uploadCounter, setUploadCounter] = useState<number | null>(null);
   const [totalCounter, setTotalCounter] = useState<number | null>(null);
+  const [uploading, setUploading] = useState(true);
 
   // get list from firebase to render
-  const getList = async (isLoading?: string) => {
+  const getList = async () => {
     const collectionRef = collection(db, currentList);
     const q = query(collectionRef, orderBy("timestamp", "desc"));
-    const getList = await onSnapshot(q, (snapshot) => {
+    const unsubscribe = await onSnapshot(q, (snapshot) => {
       setLists(
         currentList,
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-      if (isLoading === "loading") {
-        setLoading(true);
-      }
+      setLoading(true);
     });
 
-    return getList;
+    return unsubscribe;
   };
 
   //user authentication
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(
-      async (authUser: User | null) => {
-        if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
-          setLoading(false);
-          setUser(authUser);
-          getList("loading");
-        } else {
-          setUser(null);
-          router.push("/login");
-        }
+    const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
+      if (authUser?.email === "tranfoodphoto.vn@gmail.com") {
+        setLoading(false);
+        setUser(authUser);
+        getList();
+      } else {
+        setUser(null);
+        router.push("/login");
       }
-    );
+    });
     return unsubscribe;
   }, [currentList]);
 
@@ -92,7 +88,7 @@ const UploadImage = () => {
     setTotalCounter(files.length);
     for (let index = 0; index < files.length; index++) {
       if (index === 0) {
-        setLoading(false);
+        setUploading(false);
       }
       setUploadCounter(index + 1);
       // Create a new Image object with the same source as the original image
@@ -125,7 +121,7 @@ const UploadImage = () => {
               if (index === files.length - 1) {
                 console.log(index);
                 event.target.value = "";
-                setLoading(true);
+                setUploading(true);
                 setUploadCounter(null);
               }
             };
@@ -134,7 +130,7 @@ const UploadImage = () => {
         });
       } else if (index === files.length - 1) {
         event.target.value = "";
-        setLoading(true);
+        setUploading(true);
       }
     }
   };
@@ -169,7 +165,7 @@ const UploadImage = () => {
             />
           </article>
           {/* Display Image and Loading interface */}
-          {!loading ? (
+          {!loading || !uploading ? (
             <Loading
               uploadCounter={uploadCounter}
               totalCounter={totalCounter}

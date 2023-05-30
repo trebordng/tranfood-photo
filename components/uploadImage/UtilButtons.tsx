@@ -62,9 +62,7 @@ const UtilButton: React.FC<UtilButton> = ({
         type="file"
         id="file-button"
         hidden
-        onChange={async (event: React.ChangeEvent<HTMLInputElement>) => {
-          await upload(event);
-        }}
+        onChange={(event) => handleUpload(event)}
         accept={"image/*"}
         multiple
       />
