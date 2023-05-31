@@ -115,26 +115,21 @@ const UploadImage = () => {
               canvas.height = height;
               const ctx = canvas.getContext("2d");
               ctx?.drawImage(image, 0, 0, width, height);
-              // create blur image 0.1 quality
-              const blur = canvas.toDataURL("image/jpeg", 0.1);
-              const blurRef = ref(storage, "blur-" + files[index].name);
-              uploadString(blurRef, blur).then((blurImage) => {
-                getDownloadURL(blurImage.ref).then((blurDataURL) => {
-                  const collectionRef = collection(db, currentList);
-                  addDoc(collectionRef, {
-                    timestamp: serverTimestamp(),
-                    url: url,
-                    title: files[index].name.slice(0, -4),
-                    blurDataURL: blurDataURL,
-                  });
-                  if (index === files.length - 1) {
-                    console.log(index);
-                    event.target.value = "";
-                    setUploading(true);
-                    setUploadCounter(null);
-                  }
-                });
+              // create blur image 0.001 quality
+              const blurDataURL = canvas.toDataURL("image/jpeg", 0.001);
+              const collectionRef = collection(db, currentList);
+              addDoc(collectionRef, {
+                timestamp: serverTimestamp(),
+                url: url,
+                title: files[index].name.slice(0, -4),
+                blurDataURL: blurDataURL,
               });
+              if (index === files.length - 1) {
+                console.log(index);
+                event.target.value = "";
+                setUploading(true);
+                setUploadCounter(null);
+              }
             };
             image.src = URL.createObjectURL(files[index]);
           });

@@ -1,3 +1,5 @@
+'use client';
+
 import Animation from "@/layout/animation";
 import { db } from "@/utils/firebase";
 import {
@@ -30,12 +32,11 @@ const getList = async (list: string) => {
   for (const doc of querySnapshot.docs) {
     // doc.data() is never undefined for query doc snapshots
     const data = doc.data() as DocumentData;
-    const response = await fetch(data.blurDataURL);
-    const blurDataURL = await response.text();
+
     const image: ImageData = {
       url: data.url,
       title: data.title,
-      blurDataURL: blurDataURL,
+      blurDataURL:data.blurDataURL,
     };
     result.push(image);
   }
