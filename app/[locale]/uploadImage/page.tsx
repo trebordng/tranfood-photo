@@ -109,14 +109,14 @@ const UploadImage = () => {
             //load image to create a blur image
             image.onload = () => {
               const canvas = document.createElement("canvas");
-              let width = image.width;
-              let height = image.height;
+              let width = image.width/3;
+              let height = image.height/3;
               canvas.width = width;
               canvas.height = height;
               const ctx = canvas.getContext("2d");
               ctx?.drawImage(image, 0, 0, width, height);
               //create blur image url
-              const blurDataURL = canvas.toDataURL("image/jpeg", 0.0000000000000000000000000000000000000000000000000000000000000000000000001);
+              const blurDataURL = canvas.toDataURL("image/jpeg",0.000000000000000000000000000000000000000000000000000000000000001)
               const collectionRef = collection(db, currentList);
               addDoc(collectionRef, {
                 timestamp: serverTimestamp(),
