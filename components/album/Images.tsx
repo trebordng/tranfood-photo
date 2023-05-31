@@ -13,7 +13,7 @@ interface Images {
 const Images: React.FC<Images> = ({ data }) => {
   return (
     <React.Fragment>
-      {data.map((image: ImageData) => (
+      {data.map((image: ImageData, index) => (
         <Link
           aria-label={image.url}
           key={image.url}
@@ -27,9 +27,9 @@ const Images: React.FC<Images> = ({ data }) => {
             quality={80}
             sizes="(max-width: 1024px) 100vw 100vh, 100%"
             style={{ objectFit: "cover" }}
-            className="h-full w-full hover:blur-sm hover:opacity-80 transition peer"
+            className="hover:blur-sm hover:opacity-80 transition peer"
             placeholder="blur"
-            loading="lazy"
+            loading={index < 4 ? "eager" : "lazy"}
             blurDataURL={image?.blurDataURL}
           />
           <h2 className="transition text-center text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-bold pointer-events-none invisible peer-hover:visible peer                                                            ">
