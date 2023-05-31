@@ -27,7 +27,7 @@ const getList = async (list: string) => {
   const q = query(collectionRef, orderBy("timestamp", "desc"));
   const querySnapshot = await getDocs(q);
   var result: ImageData[] = [];
-  await querySnapshot.forEach(async (doc) => {
+  for (const doc of querySnapshot.docs) {
     // doc.data() is never undefined for query doc snapshots
     const data = doc.data() as DocumentData;
     const response = await fetch(data.blurDataURL);
@@ -38,7 +38,7 @@ const getList = async (list: string) => {
       blurDataURL: blurDataURL,
     };
     result.push(image);
-  });
+  }
   return result;
 };
 
