@@ -116,7 +116,7 @@ const UploadImage = () => {
                 timestamp: serverTimestamp(),
                 url: url,
                 title: files[index].name.slice(0, -4),
-                blurDataURL: blurDataURL,
+                // blurDataURL: blurDataURL,
               });
               if (index === files.length - 1) {
                 console.log(index);

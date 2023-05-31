@@ -61,14 +61,14 @@ const ImageList: React.FC<ImageList> = ({
             alt={image.title}
             fill
             sizes="(max-width: 640px) 100vw,
-    (max-width: 1280px) 50vw,
-    (max-width: 1536px) 33vw,
-    25vw"
+            (max-width: 1280px) 50%,
+            (max-width: 1536px) 33%,
+            25%"
             style={{ objectFit: "cover" }}
             className="hover:blur-sm transition peer"
             placeholder="blur"
             loading="lazy"
-            blurDataURL={image?.blurDataURL}
+            // blurDataURL={image?.blurDataURL}
           />
           <AiFillCloseCircle
             className="text-xl text-white absolute top-8 left-8 cursor-pointer hover:scale-110"
