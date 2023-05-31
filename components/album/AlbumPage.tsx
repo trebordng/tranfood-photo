@@ -11,12 +11,11 @@ import React from "react";
 import Images from "./Images";
 import Image, { StaticImageData } from "next/image";
 interface AlbumPage {
-
   list: string;
   color: string;
   quote: string;
   author: string;
-  image:StaticImageData
+  image: StaticImageData;
 }
 interface ImageData {
   url: string;
@@ -28,13 +27,15 @@ const getList = async (list: string) => {
   const q = query(collectionRef, orderBy("timestamp", "desc"));
   const querySnapshot = await getDocs(q);
   var result: ImageData[] = [];
-  querySnapshot.forEach(async (doc) => {
+  await querySnapshot.forEach(async (doc) => {
     // doc.data() is never undefined for query doc snapshots
     const data = doc.data() as DocumentData;
+    const response = await fetch(data.blurDataURL);
+    const blurDataURL = await response.text();
     const image: ImageData = {
       url: data.url,
       title: data.title,
-      blurDataURL: data.blurDataURL,
+      blurDataURL: blurDataURL,
     };
     result.push(image);
   });
@@ -47,7 +48,7 @@ const AlbumPage: React.FC<AlbumPage> = async ({
   color,
   quote,
   author,
-  image
+  image,
 }) => {
   // get list from firebase to render
   const data = await getList(list);

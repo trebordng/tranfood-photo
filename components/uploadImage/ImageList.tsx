@@ -23,9 +23,11 @@ const ImageList: React.FC<ImageList> = ({
 }) => {
   const deleteImage = (image: ImageObject) => {
     const storage = getStorage();
-    const desertRef = ref(storage, image.url);
+    const urlRef = ref(storage, image.url);
+    const blurRef = ref(storage, image.blurDataURL);
+    deleteObject(blurRef)
     // Delete the file
-    deleteObject(desertRef)
+    deleteObject(urlRef)
       .then(async () => {
         setActiveList((prevList) =>
           prevList.filter((title) => title !== image.title)
