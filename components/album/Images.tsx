@@ -5,7 +5,7 @@ import React from "react";
 interface ImageData {
   url: string;
   title: string;
-  blurDataURL: string;
+  // blurDataURL: string;
 }
 interface Images {
   data: ImageData[];

@@ -23,7 +23,7 @@ interface AlbumPage {
 interface ImageData {
   url: string;
   title: string;
-  blurDataURL: string;
+  // blurDataURL: string;
 }
 const getList = async (list: string) => {
   const collectionRef = collection(db, list);
@@ -36,7 +36,7 @@ const getList = async (list: string) => {
     const image: ImageData = {
       url: data.url,
       title: data.title,
-      blurDataURL: data.blurDataURL,
+      // blurDataURL: data.blurDataURL,
     };
     result.push(image);
   });
