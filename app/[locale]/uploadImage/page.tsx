@@ -116,7 +116,7 @@ const UploadImage = () => {
               const ctx = canvas.getContext("2d");
               ctx?.drawImage(image, 0, 0, width, height);
               //create blur image url
-              const blurDataURL = canvas.toDataURL("image/jpeg", 0.00000000000000000000001);
+              const blurDataURL = canvas.toDataURL("image/jpeg", 0.0000000000000000000000000000000000000000000000000000000000000000000000001);
               const collectionRef = collection(db, currentList);
               addDoc(collectionRef, {
                 timestamp: serverTimestamp(),
