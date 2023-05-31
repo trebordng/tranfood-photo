@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { RiLeafFill } from "react-icons/ri";
 import { PageLink } from "@/type/type";
 
 const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
