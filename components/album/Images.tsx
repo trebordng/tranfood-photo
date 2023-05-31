@@ -24,6 +24,7 @@ const Images: React.FC<Images> = ({ data }) => {
             src={image.url}
             alt={image.title}
             fill
+            quality={100}
             sizes="(max-width: 640px) 100%,
             (max-width: 1280px) 50%,
             (max-width: 1536px) 33%,
