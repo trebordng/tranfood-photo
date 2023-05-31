@@ -20,8 +20,8 @@ const AlbumLink: React.FC<Album> = ({ slug, image, name }) => {
         blurDataURL={image.blurDataURL}
         alt={name}
         fill
-        sizes="(max-width: 640px) 100%,
-        (max-width: 1280px) 50%,
+        sizes="(max-width: 639px) 100%,
+        (max-width: 1023px) 50%,
         33%"
         style={{ objectFit: "cover" }}
         className="hover:blur-sm transition opacity-80 hover:opacity-1"
