@@ -22,8 +22,6 @@ const UtilButton: React.FC<UtilButton> = ({
     const storage = getStorage();
 
     const urlRef = ref(storage, image.url);
-    const blurRef = ref(storage, image.blurDataURL);
-    deleteObject(blurRef)
     // Delete the file
     deleteObject(urlRef)
       .then(async () => {
