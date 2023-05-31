@@ -117,7 +117,7 @@ const UploadImage = () => {
               ctx?.drawImage(image, 0, 0, width, height);
               // create blur image 0.1 quality
               const blur = canvas.toDataURL("image/jpeg", 0.1);
-              const blurRef = ref(storage, files[index].name + "blur");
+              const blurRef = ref(storage, "blur-" + files[index].name );
 
               uploadString(blurRef, blur).then((blurImage) => {
                 getDownloadURL(blurImage.ref).then((blurDataURL) => {

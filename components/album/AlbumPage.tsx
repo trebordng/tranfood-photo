@@ -62,10 +62,10 @@ const AlbumPage: React.FC<AlbumPage> = async ({
             src={image.src}
             alt={list}
             fill
-            sizes="(max-width: 640px) 100vw,
+            sizes="(max-width: 640px) 100%,
             (max-width: 1280px) 50%,
             (max-width: 1536px) 33%,
-            25%"
+            25vw"
             style={{ objectFit: "cover" }}
             className="h-full w-full transition relative opacity-10"
             placeholder="blur"
