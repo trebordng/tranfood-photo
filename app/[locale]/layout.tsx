@@ -13,6 +13,12 @@ export const metadata = {
       vi: "https://tranfood-photo.vercel.app/vi",
     },
   },
+  headers: [
+    {
+      key: "Cache-Control",
+      value: "public, max-age=31536000, immutable",
+    },
+  ],
 };
 
 interface Layout {
