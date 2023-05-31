@@ -60,7 +60,10 @@ const ImageList: React.FC<ImageList> = ({
             src={typeof image.url === "string" ? image.url : ""}
             alt={image.title}
             fill
-            sizes="(max-width: 1024px) 100vw 100vh, 100%"
+            sizes="(max-width: 640px) 100vw,
+    (max-width: 1280px) 50vw,
+    (max-width: 1536px) 33vw,
+    25vw"
             style={{ objectFit: "cover" }}
             className="hover:blur-sm transition peer"
             placeholder="blur"

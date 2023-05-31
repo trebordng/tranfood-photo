@@ -25,7 +25,10 @@ const Images: React.FC<Images> = ({ data }) => {
             alt={image.title}
             fill
             quality={80}
-            sizes="(max-width: 1024px) 100vw 100vh, 100%"
+            sizes="(max-width: 640px) 100vw,
+    (max-width: 1280px) 50vw,
+    (max-width: 1536px) 33vw,
+    25vw"
             style={{ objectFit: "cover" }}
             className="hover:blur-sm hover:opacity-80 transition peer"
             placeholder="blur"

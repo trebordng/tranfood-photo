@@ -56,9 +56,8 @@ const UploadImage = () => {
         setUser(authUser);
         getList();
       } else {
-        setLoading(false);
-        setUser(authUser);
-        getList();
+        setUser(null);
+        router.push("/login");
       }
     });
     return unsubscribe;
