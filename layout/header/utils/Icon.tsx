@@ -1,7 +1,6 @@
 import { MediaIcon } from "@/type/type";
 import Link from "next/link";
 import React from "react";
-import { IconType } from "react-icons";
 
 const Icon: React.FC<MediaIcon> = ({ slug, icon: Icon }) => {
   return (

@@ -1,3 +1,5 @@
+'use client';
+
 import Animation from "@/layout/animation";
 import { db } from "@/utils/firebase";
 import {
@@ -26,7 +28,6 @@ interface ImageData {
 const getList = async (list: string) => {
   const collectionRef = collection(db, list);
   const q = query(collectionRef, orderBy("timestamp", "desc"));
-
   const querySnapshot = await getDocs(q);
   var result: ImageData[] = [];
   querySnapshot.forEach((doc) => {

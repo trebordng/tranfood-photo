@@ -15,6 +15,7 @@ const Images: React.FC<Images> = ({ data }) => {
     <React.Fragment>
       {data.map((image: ImageData) => (
         <Link
+          aria-label={image.url}
           key={image.url}
           href=""
           className="md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-lg overflow-hidden relative bg-black"
@@ -23,6 +24,7 @@ const Images: React.FC<Images> = ({ data }) => {
             src={image.url}
             alt={image.title}
             fill
+            quality={80}
             sizes="(max-width: 1024px) 100vw 100vh, 100%"
             style={{ objectFit: "cover" }}
             className="h-full w-full hover:blur-sm hover:opacity-80 transition peer"

@@ -16,7 +16,7 @@ export default function Album() {
 
   return (
     <Animation>
-      <section className="flex flex-col lg:flex-wrap lg:flex-row gap-16 md:gap-24 lg:gap-32 xl:gap-40 flex-auto overflow-x-hidden">
+      <section className="flex flex-col lg:flex-wrap lg:flex-row gap-16 md:gap-24 lg:gap-32 xl:gap-40 grow overflow-x-hidden">
         {albums.map((album: Album) => (
           <AlbumLink slug={album.slug} image={album.image} name={album.name} />
         ))}

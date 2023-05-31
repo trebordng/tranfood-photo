@@ -6,6 +6,7 @@ const withNextIntl = require("next-intl/plugin")(
 module.exports = withNextIntl({
   reactStrictMode: false,
   images: {
+    lazyLoad: true,
     remotePatterns: [
       {
         protocol: "https",
