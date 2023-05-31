@@ -6,12 +6,7 @@ import { useRouter } from "next/navigation";
 import { User } from "firebase/auth";
 import Animation from "@/layout/animation";
 import ImageList from "@/components/uploadImage/ImageList";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytes,
-} from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import {
   addDoc,
   collection,
@@ -102,37 +97,47 @@ const UploadImage = () => {
       const storageRef = ref(storage, files[index].name);
       const alreadyUploaded = await checkName(files[index].name.slice(0, -4));
       if (!alreadyUploaded) {
+        const metaData = {
+          cacheControl: "public,max-age=31536000",
+          contentType: "image/jpeg",
+        };
         // 'file' comes from the Blob or File API
-        await uploadBytes(storageRef, files[index]).then((baseImage) => {
-          getDownloadURL(baseImage.ref).then((url) => {
-            //load image to create a blur image
-            image.onload = () => {
-              const canvas = document.createElement("canvas");
-              let width = image.width/3;
-              let height = image.height/3;
-              canvas.width = width;
-              canvas.height = height;
-              const ctx = canvas.getContext("2d");
-              ctx?.drawImage(image, 0, 0, width, height);
-              //create blur image url
-              const blurDataURL = canvas.toDataURL("image/jpeg",0.000000000000000000000000000000000000000000000000000000000000001)
-              const collectionRef = collection(db, currentList);
-              addDoc(collectionRef, {
-                timestamp: serverTimestamp(),
-                url: url,
-                title: files[index].name.slice(0, -4),
-                blurDataURL: blurDataURL,
-              });
-              if (index === files.length - 1) {
-                console.log(index);
-                event.target.value = "";
-                setUploading(true);
-                setUploadCounter(null);
-              }
-            };
-            image.src = URL.createObjectURL(files[index]);
-          });
-        });
+        await uploadBytes(storageRef, files[index], metaData).then(
+          (baseImage) => {
+            getDownloadURL(baseImage.ref).then((url) => {
+              //load image to create a blur image
+              image.onload = () => {
+                const canvas = document.createElement("canvas");
+                let width = image.width / 3;
+                let height = image.height / 3;
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+                ctx?.drawImage(image, 0, 0, width, height);
+                //create blur image url
+                const blurDataURL = canvas.toDataURL(
+                  "image/jpeg",
+                  0.000000000000000000000000000000000000000000000000000000000000001
+                );
+                //add Doc to firestore
+                const collectionRef = collection(db, currentList);
+                addDoc(collectionRef, {
+                  timestamp: serverTimestamp(),
+                  url: url,
+                  title: files[index].name.slice(0, -4),
+                  blurDataURL: blurDataURL,
+                });
+                //Remove Loading at final doc
+                if (index === files.length - 1) {
+                  event.target.value = "";
+                  setUploading(true);
+                  setUploadCounter(null);
+                }
+              };
+              image.src = URL.createObjectURL(files[index]);
+            });
+          }
+        );
       } else if (index === files.length - 1) {
         event.target.value = "";
         setUploading(true);
