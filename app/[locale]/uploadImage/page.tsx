@@ -6,7 +6,13 @@ import { useRouter } from "next/navigation";
 import { User } from "firebase/auth";
 import Animation from "@/layout/animation";
 import ImageList from "@/components/uploadImage/ImageList";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadString,
+} from "firebase/storage";
 import {
   addDoc,
   collection,
@@ -110,20 +116,26 @@ const UploadImage = () => {
               const ctx = canvas.getContext("2d");
               ctx?.drawImage(image, 0, 0, width, height);
               // create blur image 0.1 quality
-              const blurDataURL = canvas.toDataURL("image/jpeg", 0.1);
-              const collectionRef = collection(db, currentList);
-              addDoc(collectionRef, {
-                timestamp: serverTimestamp(),
-                url: url,
-                title: files[index].name.slice(0, -4),
-                // blurDataURL: blurDataURL,
+              const blur = canvas.toDataURL("image/jpeg", 0.1);
+              const blurRef = ref(storage, files[index].name + "blur");
+
+              uploadString(blurRef, blur).then((blurImage) => {
+                getDownloadURL(blurImage.ref).then((blurDataURL) => {
+                  const collectionRef = collection(db, currentList);
+                  addDoc(collectionRef, {
+                    timestamp: serverTimestamp(),
+                    url: url,
+                    title: files[index].name.slice(0, -4),
+                    blurDataURL: blurDataURL,
+                  });
+                  if (index === files.length - 1) {
+                    console.log(index);
+                    event.target.value = "";
+                    setUploading(true);
+                    setUploadCounter(null);
+                  }
+                });
               });
-              if (index === files.length - 1) {
-                console.log(index);
-                event.target.value = "";
-                setUploading(true);
-                setUploadCounter(null);
-              }
             };
             image.src = URL.createObjectURL(files[index]);
           });
@@ -167,7 +179,7 @@ const UploadImage = () => {
           {/* Display Image and Loading interface */}
           {!loading || !uploading ? (
             <Loading
-              color={'text-purple-1'}
+              color={"text-purple-1"}
               uploadCounter={uploadCounter}
               totalCounter={totalCounter}
             />

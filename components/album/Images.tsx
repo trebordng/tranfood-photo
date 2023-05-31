@@ -5,7 +5,7 @@ import React from "react";
 interface ImageData {
   url: string;
   title: string;
-  // blurDataURL: string;
+  blurDataURL: string;
 }
 interface Images {
   data: ImageData[];
@@ -33,7 +33,7 @@ const Images: React.FC<Images> = ({ data }) => {
             className="hover:blur-sm hover:opacity-80 transition peer"
             placeholder="blur"
             loading={index < 4 ? "eager" : "lazy"}
-            // blurDataURL={image?.blurDataURL}
+            blurDataURL={image?.blurDataURL}
           />
           <h2 className="transition text-center text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-bold pointer-events-none invisible peer-hover:visible peer                                                            ">
             {image.title}

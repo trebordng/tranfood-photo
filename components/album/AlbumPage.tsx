@@ -1,5 +1,3 @@
-'use client';
-
 import Animation from "@/layout/animation";
 import { db } from "@/utils/firebase";
 import {
@@ -12,8 +10,8 @@ import {
 import React from "react";
 import Images from "./Images";
 import Image, { StaticImageData } from "next/image";
-
 interface AlbumPage {
+
   list: string;
   color: string;
   quote: string;
@@ -23,20 +21,20 @@ interface AlbumPage {
 interface ImageData {
   url: string;
   title: string;
-  // blurDataURL: string;
+  blurDataURL: string;
 }
 const getList = async (list: string) => {
   const collectionRef = collection(db, list);
   const q = query(collectionRef, orderBy("timestamp", "desc"));
   const querySnapshot = await getDocs(q);
   var result: ImageData[] = [];
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach(async (doc) => {
     // doc.data() is never undefined for query doc snapshots
     const data = doc.data() as DocumentData;
     const image: ImageData = {
       url: data.url,
       title: data.title,
-      // blurDataURL: data.blurDataURL,
+      blurDataURL: data.blurDataURL,
     };
     result.push(image);
   });
