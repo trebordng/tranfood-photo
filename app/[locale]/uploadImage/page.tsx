@@ -108,8 +108,8 @@ const UploadImage = () => {
               //load image to create a blur image
               image.onload = () => {
                 const canvas = document.createElement("canvas");
-                let width = image.width / 3;
-                let height = image.height / 3;
+                let width = image.width / 2;
+                let height = image.height / 2;
                 canvas.width = width;
                 canvas.height = height;
                 const ctx = canvas.getContext("2d");
