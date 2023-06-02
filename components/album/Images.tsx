@@ -1,23 +1,30 @@
+"use client";
+
+import { ListState } from "@/context/CanvasContext";
+import { ImageObject } from "@/type/type";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
-interface ImageData {
-  url: string;
-  title: string;
-  blurDataURL: string;
-}
 interface Images {
-  data: ImageData[];
+  data: ImageObject[];
+  list: string;
 }
-const Images: React.FC<Images> = ({ data }) => {
+const Images: React.FC<Images> = ({ data, list }) => {
+  const { setLists } = ListState();
+
+  useEffect(() => {
+    setLists(list, data);
+  }, []);
+
   return (
     <React.Fragment>
-      {data.map((image: ImageData, index) => (
+      {data.map((image: ImageObject, index) => (
         <Link
           aria-label={image.url}
           key={image.url}
-          href=""
+          href={`/${list.toLowerCase()}/${index}`}
+          as={`/${list.toLowerCase()}/${index}`}
           className="md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-lg overflow-hidden relative bg-black"
         >
           <Image

@@ -30,7 +30,9 @@ const ImageList: React.FC<ImageList> = ({
         setActiveList((prevList) =>
           prevList.filter((title) => title !== image.title)
         );
-        await deleteDoc(doc(db, currentList, image.id));
+        if (image.id) {
+          await deleteDoc(doc(db, currentList, image.id));
+        }
       })
       .catch((error) => {
         console.log(error);

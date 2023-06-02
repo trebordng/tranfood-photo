@@ -20,10 +20,10 @@ export interface MediaIcon {
 }
 
 export interface ImageObject {
-  id: string;
+  id?: string;
   title: string;
   url: string;
-  timestamp: Timestamp;
+  timestamp?: Timestamp;
   blurDataURL: string;
 }
 
