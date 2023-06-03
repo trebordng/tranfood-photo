@@ -25,7 +25,7 @@ const Images: React.FC<Images> = ({ data, list }) => {
     <React.Fragment>
       {photoId && (
         <Modal
-          photoId = {photoId}
+          photoId = {Number(photoId)}
           data={data}
         />
       )}

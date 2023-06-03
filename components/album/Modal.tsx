@@ -1,3 +1,5 @@
+"use client";
+
 import { ImageObject } from "@/type/type";
 import React, { useRef } from "react";
 import { Dialog } from "@headlessui/react";
@@ -5,10 +7,14 @@ import { motion as m } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const Modal = ({ data, photoId }) => {
+interface Modal {
+  data: ImageObject[];
+  photoId: number;
+}
+
+const Modal: React.FC<Modal> = ({ data, photoId }) => {
   let overlayRef = useRef();
   const router = useRouter();
-  console.log(photoId);
   function handleClose() {
     router.push("/food", undefined, { shallow: true });
   }
@@ -20,20 +26,19 @@ const Modal = ({ data, photoId }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       />
-      <div className="w-[90%] h-[70%] relative z-999 flex justify-center items-center">
-        <Image
-          alt={data[photoId].title}
-          src={data[photoId].url}
-          sizes="(max-width: 640px) 100vw,
+      <Image
+        alt={data[photoId].title}
+        src={data[photoId].url}
+        sizes="(max-width: 640px) 100vw,
             (max-width: 1280px) 50%,
             (max-width: 1536px) 33%,
             25vw"
-          height={data[photoId].height/2}
-          width={data[photoId].width/2}
-          placeholder="blur"
-          blurDataURL={data[photoId].blurDataURL}
-        />
-      </div>
+        height={data[photoId].height}
+        width={data[photoId].width}
+        placeholder="blur"
+        className="max-h-[70%] max-w-[90%] z-999 w-auto h-auto"
+        blurDataURL={data[photoId].blurDataURL}
+      />  
       <div className="w-[90%] h-[20%] bg-black relative z-999"></div>
     </div>
   );
