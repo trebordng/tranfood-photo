@@ -25,6 +25,8 @@ export interface ImageObject {
   url: string;
   timestamp?: Timestamp;
   blurDataURL: string;
+  width?: number;
+  height?: number;
 }
 
 export interface SnapShotImage {

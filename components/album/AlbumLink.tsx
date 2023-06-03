@@ -20,7 +20,7 @@ const AlbumLink: React.FC<Album> = ({ slug, image, name }) => {
         blurDataURL={image.blurDataURL}
         alt={name}
         fill
-        sizes="(max-width: 640px) 100%,
+        sizes="(max-width: 640px) 100vw,
         (max-width: 1280px) 50%,
         (max-width: 1536px) 33%,
         25vw"

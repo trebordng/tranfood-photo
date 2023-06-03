@@ -31,10 +31,13 @@ const getList = async (list: string) => {
     const image: ImageObject = {
       url: data.url,
       title: data.title,
-      blurDataURL:data.blurDataURL,
+      blurDataURL: data.blurDataURL,
+      width: data.width,
+      height: data.height
     };
     result.push(image);
   }
+
   return result;
 };
 
@@ -59,7 +62,7 @@ const AlbumPage: React.FC<AlbumPage> = async ({
             src={image.src}
             alt={list}
             fill
-            sizes="(max-width: 640px) 100%,
+            sizes="(max-width: 640px) 100vw,
             (max-width: 1280px) 50%,
             (max-width: 1536px) 33%,
             25vw"
@@ -75,7 +78,7 @@ const AlbumPage: React.FC<AlbumPage> = async ({
             <p className="font-semibold text-md ">{author}</p>
           </div>
         </article>
-        <Images data={data} list={list}/>
+        <Images data={data} list={list} />
       </section>
     </Animation>
   );

@@ -126,6 +126,8 @@ const UploadImage = () => {
                   url: url,
                   title: files[index].name.slice(0, -4),
                   blurDataURL: blurDataURL,
+                  width:image.width,
+                  height:image.height
                 });
                 //Remove Loading at final doc
                 if (index === files.length - 1) {

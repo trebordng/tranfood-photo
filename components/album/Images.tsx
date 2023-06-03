@@ -4,7 +4,9 @@ import { ListState } from "@/context/CanvasContext";
 import { ImageObject } from "@/type/type";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
+import Modal from "./Modal";
 
 interface Images {
   data: ImageObject[];
@@ -12,19 +14,28 @@ interface Images {
 }
 const Images: React.FC<Images> = ({ data, list }) => {
   const { setLists } = ListState();
+  const searchParams = useSearchParams();
+  const photoId = searchParams.get("photoId");
 
   useEffect(() => {
     setLists(list, data);
   }, []);
-
+  
   return (
     <React.Fragment>
+      {photoId && (
+        <Modal
+          photoId = {photoId}
+          data={data}
+        />
+      )}
       {data.map((image: ImageObject, index) => (
         <Link
           aria-label={image.url}
           key={image.url}
-          href={`/${list.toLowerCase()}/${index}`}
-          as={`/${list.toLowerCase()}/${index}`}
+          shallow
+          href={`/${list.toLowerCase()}/?photoId=${index}`}
+          as={`/${list.toLowerCase()}/?photoId=${index}`}
           className="md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-lg overflow-hidden relative bg-black"
         >
           <Image
