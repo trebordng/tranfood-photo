@@ -24,7 +24,7 @@ const AlbumLink: React.FC<Album> = ({ slug, image, name }) => {
         (max-width: 1280px) 50%,
         (max-width: 1536px) 33%,
         25vw"
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "cover", transform: "translate3d(0, 0, 0)" }}
         className="hover:blur-sm transition opacity-80 hover:opacity-1"
       />
       <h2 className="text-white text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl uppercase font-bold pointer-events-none">

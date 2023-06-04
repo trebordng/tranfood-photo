@@ -66,8 +66,8 @@ const AlbumPage: React.FC<AlbumPage> = async ({
             sizes="(max-width: 640px) 100vw,
             (max-width: 1280px) 50%,
             (max-width: 1536px) 33%,
-            25vw"
-            style={{ objectFit: "cover" }}
+            25vw"      
+            style={{ objectFit: "cover",transform: 'translate3d(0, 0, 0)'  }}
             className="h-full w-full transition relative opacity-10"
             placeholder="blur"
             loading="lazy"

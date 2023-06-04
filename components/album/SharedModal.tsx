@@ -1,5 +1,6 @@
 "use client";
-
+import { IoMdClose, IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
+import { BiLinkExternal } from "react-icons/bi";
 import { ImageObject } from "@/type/type";
 import React, { useState } from "react";
 import { AnimatePresence, MotionConfig, motion as m } from "framer-motion";
@@ -7,6 +8,7 @@ import { range } from "@/utils/range";
 import Image from "next/image";
 import { useSwipeable } from "react-swipeable";
 import { variants } from "@/utils/variants";
+import Link from "next/link";
 
 interface SharedModal {
   index: number;
@@ -47,12 +49,46 @@ const SharedModal: React.FC<SharedModal> = ({
   return (
     <MotionConfig
       transition={{
-        x: { type: "spring", stiffness: 300, damping: 30 },
+        x: { type: "spring", stiffness: 300, damping: 20 },
         opacity: { duration: 0.2 },
       }}
     >
-      <div
-        className="fixed top-0 w-full h-full left-0 z-10 inset-0 overflow-hidden "
+      {/* buttons */}
+      {loading && (
+        <article>
+          <button
+            onClick={closeModal}
+            className="p-8 fixed top-4 left-4 xl:top-16 xl:left-16 bg-black/50 z-9999 rounded-full hover:rotate-90 hover:bg-black/30 transition"
+          >
+            <IoMdClose className="text-xl text-white" />
+          </button>
+          <Link
+            href={data[index].url}
+            className="p-8 fixed top-4 right-4 xl:top-16 xl:right-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition"
+          >
+            <BiLinkExternal className="text-xl text-white" />
+          </Link>
+          {index > 0 && (
+            <button
+              onClick={() => changePhotoId(index - 1)}
+              className="p-8 fixed left-4 top-[50%] xl:left-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition -translate-y-1/2"
+            >
+              <IoMdArrowBack className="text-xl text-white" />
+            </button>
+          )}
+          {index < data.length-1 && (
+            <button
+              onClick={() => changePhotoId(index + 1)}
+              className="p-8 fixed right-4 top-[50%] xl:right-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition -translate-y-1/2"
+            >
+              <IoMdArrowForward className="text-xl text-white" />
+            </button>
+          )}
+        </article>
+      )}
+
+      <article
+        className="fixed top-0 w-full h-full left-0 z-10 inset-0"
         {...handlers}
       >
         <m.div
@@ -90,15 +126,14 @@ const SharedModal: React.FC<SharedModal> = ({
               placeholder="blur"
               className={`max-h-[95%] max-w-[100%] z-999 w-auto`}
               blurDataURL={data[index].blurDataURL}
-              priority
               onLoadingComplete={() => setLoading(true)}
             />
           </m.div>
         </AnimatePresence>
-      </div>
+      </article>
       {/* navigation */}
       {loading && (
-        <div className="fixed inset-x-0  bottom-0 z-999 overflow-hidden bg-gradient-to-b from-black/0 to-black/60">
+        <article className="fixed inset-x-0  bottom-0 z-999 overflow-hidden bg-gradient-to-b from-black/0 to-black/60">
           <m.div
             initial={false}
             className="mx-auto my-16 md:my-24 lg:my-32 xl:my-40  flex aspect-[3/2] h-14"
@@ -143,7 +178,7 @@ const SharedModal: React.FC<SharedModal> = ({
               ))}
             </AnimatePresence>
           </m.div>
-        </div>
+        </article>
       )}
     </MotionConfig>
   );

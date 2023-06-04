@@ -9,20 +9,24 @@ import SharedModal from "./SharedModal";
 interface Modal {
   data: ImageObject[];
   photoId: number;
-  list:string;
+  list: string;
+  onClose?: () => void;
 }
 
-const Modal: React.FC<Modal> = ({ data, photoId,list }) => {
+const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
   const router = useRouter();
   const [direction, setDirection] = useState(0);
   const [curIndex, setCurIndex] = useState(photoId);
 
-  // document.body.style.overflow = 'hidden';
+  // document.body.style.overflow = "hidden";
   function handleClose() {
     console.log(`/${list}`);
     /* @ts-expect-error router next/navigation*/
     router.push(`/${list}`, `/${list}`, { shallow: true });
-    // document.body.style.removeProperty('overflow');
+    if (onClose) {
+      onClose();
+    }
+    // document.body.style.removeProperty("overflow");
   }
 
   function changePhotoId(newVal: number) {
