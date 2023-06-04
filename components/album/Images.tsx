@@ -16,17 +16,17 @@ const Images: React.FC<Images> = ({ data, list }) => {
   const { setLists } = ListState();
   const searchParams = useSearchParams();
   const photoId = searchParams.get("photoId");
-
   useEffect(() => {
     setLists(list, data);
   }, []);
-  
+
   return (
     <React.Fragment>
       {photoId && (
         <Modal
-          photoId = {Number(photoId)}
+          photoId={Number(photoId)}
           data={data}
+          list={list.toLowerCase()}
         />
       )}
       {data.map((image: ImageObject, index) => (

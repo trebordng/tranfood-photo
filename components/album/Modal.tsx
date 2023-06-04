@@ -9,17 +9,19 @@ import SharedModal from "./SharedModal";
 interface Modal {
   data: ImageObject[];
   photoId: number;
+  list:string;
 }
 
-const Modal: React.FC<Modal> = ({ data, photoId }) => {
+const Modal: React.FC<Modal> = ({ data, photoId,list }) => {
   const router = useRouter();
   const [direction, setDirection] = useState(0);
   const [curIndex, setCurIndex] = useState(photoId);
 
   // document.body.style.overflow = 'hidden';
   function handleClose() {
+    console.log(`/${list}`);
     /* @ts-expect-error router next/navigation*/
-    router.push("/food", "/food", { shallow: true });
+    router.push(`/${list}`, `/${list}`, { shallow: true });
     // document.body.style.removeProperty('overflow');
   }
 
@@ -32,8 +34,8 @@ const Modal: React.FC<Modal> = ({ data, photoId }) => {
     setCurIndex(newVal);
 
     router.push(
-      `/food?photoId=${newVal}`,
-      `/food?photoId=${newVal}`,
+      `/${list}?photoId=${newVal}`,
+      `/${list}?photoId=${newVal}`,
       /* @ts-expect-error router next/navigation*/
       { shallow: true }
     );

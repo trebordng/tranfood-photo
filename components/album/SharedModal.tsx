@@ -64,7 +64,7 @@ const SharedModal: React.FC<SharedModal> = ({
         {/* main image */}
         <AnimatePresence initial={false} custom={direction}>
           <m.div
-            className="top-16 md:top-24 lg:top-32 xl:top-40 fixed h-[calc(100%-5.25rem-48px)] md:h-[calc(100%-5.25rem-72px)] lg:h-[calc(100%-5.25rem-96px)] xl:h-[calc(100%-5.25rem-120px)] w-[95%] flex flex-col gap-16 items-center justify-center"
+            className="top-16 md:top-24 lg:top-32 xl:top-40 fixed h-[calc(100%-5.25rem-48px)] md:h-[calc(100%-5.25rem-72px)] lg:h-[calc(100%-5.25rem-96px)] xl:h-[calc(100%-5.25rem-120px)] w-full flex flex-col gap-16 items-center justify-center"
             key={index}
             custom={direction}
             variants={variants}

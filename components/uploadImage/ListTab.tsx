@@ -14,10 +14,10 @@ const ListTab: React.FC<ListTab> = ({ list, currentList, setCurrentList }) => {
       onClick={() => {
         setCurrentList(list);
       }}
-      className={`transition flex-auto shadow-xl px-24 py-8 rounded-md font-semibold text-center border-gray-100 border  ${
+      className={`transition flex-auto shadow-xl px-24 py-8 rounded-md font-semibold text-center border-gray/10 border  ${
         currentList === list
-          ? "bg-purple-1 text-white pointer-events-none"
-          : "cursor-pointer hover:bg-gray-100"
+          ? "bg-purple text-white pointer-events-none"
+          : "cursor-pointer hover:bg-gray/10"
       } `}
     >
       {list}

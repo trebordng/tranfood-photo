@@ -69,7 +69,7 @@ const UtilButton: React.FC<UtilButton> = ({
       />
       <label
         htmlFor="file-button"
-        className="hover:bg-gray-100 cursor-pointer py-8 px-24 shadow-xl rounded-md border-gray-100 border inline-block"
+        className="hover:bg-gray/10 cursor-pointer py-8 px-24 shadow-xl rounded-md border-gray/10 border inline-block"
       >
         Upload files
       </label>
@@ -77,8 +77,8 @@ const UtilButton: React.FC<UtilButton> = ({
         disabled={activeList.length === 0}
         onClick={deleteImages}
         className={` ${
-          activeList.length === 0 && "pointer-events-none opacity-50 bg-red-500"
-        } hover:bg-red-500 cursor-pointer py-8 px-24 shadow-xl rounded-md bg-red-1 border-red-100 border text-white`}
+          activeList.length === 0 && "pointer-events-none opacity-50 bg-red/50"
+        } hover:bg-red/50 cursor-pointer py-8 px-24 shadow-xl rounded-md bg-red border-red/10 border text-white`}
       >
         Remove Selected
       </button>

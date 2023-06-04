@@ -55,7 +55,7 @@ const ImageList: React.FC<ImageList> = ({
           onClick={() => setActiveImage(image)}
           key={image.title}
           className={`${
-            activeList.includes(image.title) && "border-4 border-purple-1"
+            activeList.includes(image.title) && "border-4 border-purple"
           } md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-lg overflow-hidden relative cursor-pointer`}
         >
           <Image

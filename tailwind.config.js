@@ -12,27 +12,17 @@ module.exports = {
       md: "768px",
       lg: "1024px",
       xl: { raw: "(min-height: 800px) and (min-width:1280px)" },
+      smallSize: { raw: "(max-width:1279px)" },
     },
     extend: {
       colors: {
-        yellow:"#FEAA1A",
-        red: {
-          100: "rgba(210, 4, 45,0.1)",
-          500: "rgba(210, 4, 45,0.5)",
-          1: "rgb(210, 4, 45)",
-        },
+        yellow: "#FEAA1A",
+        red: "#d2042d",
         blue: "#77CCFF",
         white: "#F6F4F4",
-        purple: {
-          500: "rgba(134,133,239,0.5)",
-          1: "rgb(134,133,239)",
-        },
+        purple: "#8685ef",
         black: "#020202",
-        gray: {
-          100: "rgba(89, 89, 89,0.1)",
-          500: "rgba(89, 89, 89,0.1)",
-          1: "rgb(	89, 89, 89)",
-        },
+        gray: "#595959",
       },
       fontWeight: {
         thin: "100",
@@ -53,8 +43,8 @@ module.exports = {
         0: 0,
         1: 1,
         2: 2,
-        9:9,
-        10:10,
+        9: 9,
+        10: 10,
         999: 999,
         9999: 9999,
       },
