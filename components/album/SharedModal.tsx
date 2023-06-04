@@ -6,6 +6,7 @@ import { AnimatePresence, MotionConfig, motion as m } from "framer-motion";
 import { range } from "@/utils/range";
 import Image from "next/image";
 import { useSwipeable } from "react-swipeable";
+import { variants } from "@/utils/variants";
 
 interface SharedModal {
   index: number;
@@ -23,7 +24,7 @@ const SharedModal: React.FC<SharedModal> = ({
   direction,
   curIndex,
 }) => {
-  const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   let filteredImages = data.filter((image: ImageObject) => {
     return range(index - 15, index + 15).includes(image.pageId);
@@ -61,29 +62,42 @@ const SharedModal: React.FC<SharedModal> = ({
           animate={{ opacity: 1 }}
         />
         {/* main image */}
-        <div className="top-16 md:top-24 lg:top-32 xl:top-40 left-[50%] -translate-x-1/2 fixed h-[calc(100%-5.25rem-48px)] md:h-[calc(100%-5.25rem-72px)] lg:h-[calc(100%-5.25rem-96px)] xl:h-[calc(100%-5.25rem-120px)] w-[95%] flex flex-col gap-16 items-center justify-center">
+        <AnimatePresence initial={false} custom={direction}>
           <m.div
-            onClick={closeModal}
-            className="inset-0 fixed z-99"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          />
-          <p className="z-999 relative text-xl text-white text-center">
-            {data[index].title}
-          </p>
-          <Image
-            alt={data[index].title}
-            src={data[index].url}
-            sizes="100vw"
-            height={data[index].height}
-            width={data[index].width}
-            placeholder="blur"
-            className={`max-h-[95%] max-w-[100%] z-999 w-auto`}
-            blurDataURL={data[index].blurDataURL}
-            priority
-          />
-        </div>
-        {/* navigation */}
+            className="top-16 md:top-24 lg:top-32 xl:top-40 fixed h-[calc(100%-5.25rem-48px)] md:h-[calc(100%-5.25rem-72px)] lg:h-[calc(100%-5.25rem-96px)] xl:h-[calc(100%-5.25rem-120px)] w-[95%] flex flex-col gap-16 items-center justify-center"
+            key={index}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+          >
+            <m.div
+              onClick={closeModal}
+              className="inset-0 fixed z-99"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            />
+            <p className="z-999 relative text-xl text-white text-center">
+              {data[index].title}
+            </p>
+            <Image
+              alt={data[index].title}
+              src={data[index].url}
+              sizes="100vw"
+              height={data[index].height}
+              width={data[index].width}
+              placeholder="blur"
+              className={`max-h-[95%] max-w-[100%] z-999 w-auto`}
+              blurDataURL={data[index].blurDataURL}
+              priority
+              onLoadingComplete={() => setLoading(true)}
+            />
+          </m.div>
+        </AnimatePresence>
+      </div>
+      {/* navigation */}
+      {loading && (
         <div className="fixed inset-x-0  bottom-0 z-999 overflow-hidden bg-gradient-to-b from-black/0 to-black/60">
           <m.div
             initial={false}
@@ -130,7 +144,7 @@ const SharedModal: React.FC<SharedModal> = ({
             </AnimatePresence>
           </m.div>
         </div>
-      </div>
+      )}
     </MotionConfig>
   );
 };
