@@ -7,7 +7,10 @@ const PhoneNav = () => {
   // scroll event for smaller size screens
   useEffect(() => {
     window.addEventListener("scroll", function () {
-      if (window.innerWidth < 1280) {
+      if (
+        window.innerWidth < 1280 ||
+        (window.innerWidth > 1280 && window.innerHeight < 800)
+      ) {
         const scrollTop =
           document.body.scrollTop || document.documentElement.scrollTop;
         const classes = ["bg-purple", "p-4", "text-white"];
