@@ -24,11 +24,13 @@ const getList = async (list: string) => {
   const q = query(collectionRef, orderBy("timestamp", "desc"));
   const querySnapshot = await getDocs(q);
   var result: ImageObject[] = [];
-  for (const doc of querySnapshot.docs) {
+
+  for (let index = 0; index < querySnapshot.docs.length; index++) {
     // doc.data() is never undefined for query doc snapshots
-    const data = doc.data() as DocumentData;
+    const data = querySnapshot.docs[index].data() as DocumentData;
 
     const image: ImageObject = {
+      pageId: data.pageId,
       url: data.url,
       title: data.title,
       blurDataURL: data.blurDataURL,
@@ -37,7 +39,6 @@ const getList = async (list: string) => {
     };
     result.push(image);
   }
-
   return result;
 };
 

@@ -20,6 +20,7 @@ export interface MediaIcon {
 }
 
 export interface ImageObject {
+  pageId: number;
   id?: string;
   title: string;
   url: string;
