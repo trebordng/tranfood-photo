@@ -71,7 +71,7 @@ const SharedModal: React.FC<SharedModal> = ({
           {index > 0 && (
             <button
               onClick={() => changePhotoId(index - 1)}
-              className="p-8 fixed left-4 top-[50%] xl:left-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition -translate-y-1/2"
+              className="hidden lg:block p-8 fixed left-4 top-[50%] xl:left-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition -translate-y-1/2"
             >
               <IoMdArrowBack className="text-xl text-white" />
             </button>
@@ -79,7 +79,7 @@ const SharedModal: React.FC<SharedModal> = ({
           {index < data.length-1 && (
             <button
               onClick={() => changePhotoId(index + 1)}
-              className="p-8 fixed right-4 top-[50%] xl:right-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition -translate-y-1/2"
+              className="hidden lg:block p-8 fixed right-4 top-[50%] xl:right-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition -translate-y-1/2"
             >
               <IoMdArrowForward className="text-xl text-white" />
             </button>

@@ -1,10 +1,11 @@
 "use client";
 
 import { ImageObject } from "@/type/type";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useKeypress from "react-use-keypress";
 import SharedModal from "./SharedModal";
+import { Dialog } from "@headlessui/react";
 
 interface Modal {
   data: ImageObject[];
@@ -18,7 +19,9 @@ const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
   const [direction, setDirection] = useState(0);
   const [curIndex, setCurIndex] = useState(photoId);
 
-  // document.body.style.overflow = "hidden";
+  useEffect(() => {
+    document.getElementById("navbar")?.classList.remove("sticky");
+  }, []);
   function handleClose() {
     console.log(`/${list}`);
     /* @ts-expect-error router next/navigation*/
@@ -26,7 +29,7 @@ const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
     if (onClose) {
       onClose();
     }
-    // document.body.style.removeProperty("overflow");
+    document.getElementById("navbar")?.classList.add("sticky");
   }
 
   function changePhotoId(newVal: number) {
@@ -58,14 +61,21 @@ const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
   });
 
   return (
-    <SharedModal
-      index={curIndex}
-      direction={direction}
-      data={data}
-      changePhotoId={changePhotoId}
-      closeModal={handleClose}
-      curIndex={curIndex}
-    />
+    <Dialog
+      static
+      open={true}
+      onClose={handleClose}
+      className="fixed inset-0 z-10 flex items-center justify-center"
+    >
+      <SharedModal
+        index={curIndex}
+        direction={direction}
+        data={data}
+        changePhotoId={changePhotoId}
+        closeModal={handleClose}
+        curIndex={curIndex}
+      />
+    </Dialog>
   );
 };
 
