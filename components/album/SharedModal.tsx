@@ -105,11 +105,9 @@ const SharedModal: React.FC<SharedModal> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             />
-            {loading && (
-              <p className="z-999 relative text-xl text-white text-center">
-                {data[index].title}
-              </p>
-            )}
+            <p className="z-999 relative text-xl text-white text-center">
+              {data[index].title}
+            </p>
             <Image
               alt={data[index].title}
               src={data[index].url}
