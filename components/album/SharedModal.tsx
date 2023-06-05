@@ -47,12 +47,7 @@ const SharedModal: React.FC<SharedModal> = ({
   });
 
   return (
-    <MotionConfig
-      transition={{
-        x: { type: "spring", stiffness: 300, damping: 20 },
-        opacity: { duration: 0.2 },
-      }}
-    >
+    <>
       {/* buttons */}
       {loading && (
         <article>
@@ -93,12 +88,6 @@ const SharedModal: React.FC<SharedModal> = ({
         className="fixed top-0 w-full h-full left-0 z-10 inset-0"
         {...handlers}
       >
-        <m.div
-          onClick={closeModal}
-          className="inset-0 bg-black/70 backdrop-blur-2xl fixed z-99"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        />
         {/* main image */}
         <AnimatePresence initial={false} custom={direction}>
           <m.div
@@ -182,7 +171,7 @@ const SharedModal: React.FC<SharedModal> = ({
           </m.div>
         </article>
       )}
-    </MotionConfig>
+    </>
   );
 };
 
