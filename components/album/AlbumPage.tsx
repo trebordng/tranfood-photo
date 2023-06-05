@@ -1,5 +1,3 @@
-'use client';
-
 import Animation from "@/layout/animation";
 import { db } from "@/utils/firebase";
 import {
