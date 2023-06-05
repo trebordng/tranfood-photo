@@ -23,9 +23,8 @@ const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
     document.getElementById("navbar")?.classList.remove("sticky");
   }, []);
   function handleClose() {
-    console.log(`/${list}`);
     /* @ts-expect-error router next/navigation*/
-    router.push(`/${list}`, `/${list}`, { shallow: true });
+    router.replace(`/${list}`, `/${list}`, { shallow: true });
     if (onClose) {
       onClose();
     }
@@ -40,7 +39,7 @@ const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
     }
     setCurIndex(newVal);
 
-    router.push(
+    router.replace(
       `/${list}?photoId=${newVal}`,
       `/${list}?photoId=${newVal}`,
       /* @ts-expect-error router next/navigation*/

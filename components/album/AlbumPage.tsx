@@ -16,7 +16,7 @@ interface AlbumPage {
   list: string;
   color: string;
   quote: string;
-  author: string;
+  author?: string;
   image: StaticImageData;
 }
 const getList = async (list: string) => {

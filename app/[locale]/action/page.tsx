@@ -1,6 +1,6 @@
 import AlbumPage from "@/components/album/AlbumPage";
 import React from "react";
-import drink from "@/public/images/drink.jpg";
+import action from "@/public/images/action.jpg";
 
 export const metadata = {
   title: "Drink | Tran Food Photography",
@@ -18,10 +18,11 @@ const Drink = () => {
   return (
     <React.Fragment>
       <AlbumPage
-        list="Drink"
+        list="Action"
         color="bg-gray-500"
-        quote="There is always time for a drink!"
-        image={drink}
+        quote="In this moment, I am safe"
+        author="-Rick Hanson"
+        image={action}
       />
     </React.Fragment>
   );

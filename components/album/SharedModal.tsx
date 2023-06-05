@@ -64,6 +64,8 @@ const SharedModal: React.FC<SharedModal> = ({
           </button>
           <Link
             href={data[index].url}
+            target="_blank"
+            rel="noopener"
             className="p-8 fixed top-4 right-4 xl:top-16 xl:right-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition"
           >
             <BiLinkExternal className="text-xl text-white" />
@@ -76,7 +78,7 @@ const SharedModal: React.FC<SharedModal> = ({
               <IoMdArrowBack className="text-xl text-white" />
             </button>
           )}
-          {index < data.length-1 && (
+          {index < data.length - 1 && (
             <button
               onClick={() => changePhotoId(index + 1)}
               className="hidden lg:block p-8 fixed right-4 top-[50%] xl:right-16 bg-black/50 z-9999 rounded-full hover:bg-black/30 transition -translate-y-1/2"
