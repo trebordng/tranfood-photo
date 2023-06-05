@@ -70,8 +70,8 @@ const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
   return (
     <MotionConfig
       transition={{
-        x: { type: "spring", stiffness: 300, damping: 20 },
-        opacity: { duration: 0.4 },
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.2 },
       }}
     >
       <Dialog
