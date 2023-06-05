@@ -46,9 +46,6 @@ const SharedModal: React.FC<SharedModal> = ({
     trackMouse: true,
   });
 
-  useEffect(() => {
-    return setLoading(false);
-  }, []);
   return (
     <>
       {/* buttons */}
