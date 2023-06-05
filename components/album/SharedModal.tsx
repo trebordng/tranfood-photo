@@ -111,13 +111,17 @@ const SharedModal: React.FC<SharedModal> = ({
             <Image
               alt={data[index].title}
               src={data[index].url}
-              sizes="100vw"
+              sizes="(max-width: 640px) 100vw,
+              (max-width: 1280px) 50%,
+              (max-width: 1536px) 33%,
+              25vw"
               height={data[index].height}
               width={data[index].width}
               placeholder="blur"
               className={`max-h-[95%] max-w-[100%] z-999 w-auto`}
               blurDataURL={data[index].blurDataURL}
               onLoadingComplete={() => setLoading(true)}
+              priority
             />
           </m.div>
         </AnimatePresence>
