@@ -2,7 +2,7 @@
 import { IoMdClose, IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { BiLinkExternal } from "react-icons/bi";
 import { ImageObject } from "@/type/type";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, MotionConfig, motion as m } from "framer-motion";
 import { range } from "@/utils/range";
 import Image from "next/image";
@@ -46,6 +46,9 @@ const SharedModal: React.FC<SharedModal> = ({
     trackMouse: true,
   });
 
+  useEffect(() => {
+    return setLoading(false);
+  }, []);
   return (
     <>
       {/* buttons */}
@@ -105,9 +108,11 @@ const SharedModal: React.FC<SharedModal> = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             />
-            <p className="z-999 relative text-xl text-white text-center">
-              {data[index].title}
-            </p>
+            {loading && (
+              <p className="z-999 relative text-xl text-white text-center">
+                {data[index].title}
+              </p>
+            )}
             <Image
               alt={data[index].title}
               src={data[index].url}
