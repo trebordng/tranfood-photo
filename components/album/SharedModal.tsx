@@ -165,6 +165,7 @@ const SharedModal: React.FC<SharedModal> = ({
                     src={url}
                     placeholder="blur"
                     blurDataURL={blurDataURL}
+                    sizes="30vw"
                   />
                 </m.button>
               ))}
