@@ -3,7 +3,7 @@
 import { Dispatch } from "react";
 
 interface FormInput {
-    name:string;
+  name: string;
   value: string;
   setValue: Dispatch<string>;
   placeholder: string;
@@ -21,14 +21,14 @@ const FormInput: React.FC<FormInput> = ({
   };
 
   return (
-    <div className="mb-16">
+    <div className="mb-16 w-full">
       <label className="text-xl block text-black font-bold">{name}</label>
       <input
         value={value}
         placeholder={placeholder}
         type={type}
         onChange={(e) => onChange(setValue, e.target.value)}
-        className="text-md appearance-none w-full my-4 p-8 border text-gray-1 shadow-lg rounded-md focus:text-black focus:shadow-out"
+        className="text-md appearance-none w-full my-4 p-8 md:w-256 text-gray shadow-lg rounded-md border border-gray/10 focus:text-black focus:shadow-out focus:border-black/50"
       />
     </div>
   );

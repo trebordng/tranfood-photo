@@ -53,7 +53,7 @@ const Images: React.FC<Images> = ({ data, list }) => {
           shallow
           href={`/${list.toLowerCase()}/?photoId=${index}`}
           as={`/${list.toLowerCase()}/?photoId=${index}`}
-          className="md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-lg overflow-hidden relative bg-black"
+          className="md:w-[calc(50%-12px)] cursor-zoom-in lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-lg overflow-hidden relative bg-black"
         >
           <Image
             src={image.url}

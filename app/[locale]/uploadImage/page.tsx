@@ -18,20 +18,30 @@ import {
 import { ListState } from "@/context/CanvasContext";
 import Loading from "@/components/loading";
 import ListTab from "@/components/uploadImage/ListTab";
-import UtilButton from "@/components/uploadImage/UtilButtons";
+import ImageButton from "@/components/uploadImage/ImageButtons";
 import { ImageObject } from "@/type/type";
+import PostList from "@/components/uploadImage/PostList";
+import PostButtons from "@/components/uploadImage/PostButtons";
 
 const UploadImage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [currentList, setCurrentList] = useState("Food");
-  const lists: string[] = ["Food", "Drink", "Action", "Lifestyle"];
+  const lists: string[] = [
+    "Food",
+    "Drink",
+    "Action",
+    "Lifestyle",
+    "Blogs",
+    "Recipes",
+  ];
   const { lists: listObject, setLists } = ListState();
   const [activeList, setActiveList] = useState<string[]>([]);
   const [uploadCounter, setUploadCounter] = useState<number | null>(null);
   const [totalCounter, setTotalCounter] = useState<number | null>(null);
   const [uploading, setUploading] = useState(true);
+  const [creatingPost, setCreatingPost] = useState('viewing');
 
   // get list from firebase to render
   const getList = async () => {
@@ -126,9 +136,9 @@ const UploadImage = () => {
                   url: url,
                   title: files[index].name.slice(0, -4),
                   blurDataURL: blurDataURL,
-                  width:image.width,
-                  height:image.height,
-                  pageId: files.length - 1 - index 
+                  width: image.width,
+                  height: image.height,
+                  pageId: files.length - 1 - index,
                 });
                 //Remove Loading at final doc
                 if (index === files.length - 1) {
@@ -161,21 +171,25 @@ const UploadImage = () => {
                   list={list}
                   currentList={currentList}
                   setCurrentList={setCurrentList}
+                  setCreatingPost={setCreatingPost}
                 />
               ))}
             </div>
             {/* Upload Button */}
-            <UtilButton
-              listObject={listObject[currentList]}
-              activeList={activeList}
-              setActiveList={setActiveList}
-              currentList={currentList}
-              upload={
-                currentList !== "Blogs" && currentList !== "Recipes"
-                  ? uploadImage
-                  : uploadImage
-              }
-            />
+            {currentList !== "Blogs" && currentList !== "Recipes" ? (
+              <ImageButton
+                listObject={listObject[currentList]}
+                activeList={activeList}
+                setActiveList={setActiveList}
+                currentList={currentList}
+                upload={uploadImage}
+              />
+            ) : (
+              <PostButtons
+                creatingPost={creatingPost}
+                setCreatingPost={setCreatingPost}
+              />
+            )}
           </article>
           {/* Display Image and Loading interface */}
           {!loading || !uploading ? (
@@ -183,16 +197,18 @@ const UploadImage = () => {
               uploadCounter={uploadCounter}
               totalCounter={totalCounter}
             />
+          ) : currentList !== "Blogs" && currentList !== "Recipes" ? (
+            <ImageList
+              listObject={listObject[currentList]}
+              currentList={currentList}
+              activeList={activeList}
+              setActiveList={setActiveList}
+            />
           ) : (
-            currentList !== "Blogs" &&
-            currentList !== "Recipes" && (
-              <ImageList
-                listObject={listObject[currentList]}
-                currentList={currentList}
-                activeList={activeList}
-                setActiveList={setActiveList}
-              />
-            )
+            <PostList
+              creatingPost={creatingPost}
+              setCreatingPost={setCreatingPost}
+            />
           )}
         </section>
       </Animation>
