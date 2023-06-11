@@ -109,7 +109,7 @@ const UploadImage = () => {
       if (!alreadyUploaded) {
         const metaData = {
           cacheControl: "public,max-age=31536000",
-          contentType: "image/jpeg",
+          contentType: "image/jpg",
         };
         // 'file' comes from the Blob or File API
         await uploadBytes(storageRef, files[index], metaData).then(
@@ -137,8 +137,7 @@ const UploadImage = () => {
                   title: files[index].name.slice(0, -4),
                   blurDataURL: blurDataURL,
                   width: image.width,
-                  height: image.height,
-                  pageId: files.length - 1 - index,
+                  height: image.height
                 });
                 //Remove Loading at final doc
                 if (index === files.length - 1) {
@@ -171,6 +170,7 @@ const UploadImage = () => {
                   list={list}
                   currentList={currentList}
                   setCurrentList={setCurrentList}
+                  creatingPost={creatingPost}
                   setCreatingPost={setCreatingPost}
                 />
               ))}
@@ -206,6 +206,7 @@ const UploadImage = () => {
             />
           ) : (
             <PostList
+              currentList={currentList}
               creatingPost={creatingPost}
               setCreatingPost={setCreatingPost}
             />

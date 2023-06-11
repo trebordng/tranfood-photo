@@ -1,12 +1,18 @@
 import React, { SetStateAction } from "react";
+import CreatePost from "./post/CreatePost";
 
 interface PostList {
   creatingPost: string;
   setCreatingPost: React.Dispatch<SetStateAction<string>>;
+  currentList: string;
 }
-const PostList: React.FC<PostList> = ({ creatingPost, setCreatingPost }) => {
+const PostList: React.FC<PostList> = ({
+  creatingPost,
+  setCreatingPost,
+  currentList,
+}) => {
   return creatingPost === "creating" ? (
-    <div>CreatePost</div>
+    <CreatePost creatingPost={creatingPost} setCreatingPost={setCreatingPost} />
   ) : creatingPost === "editing" ? (
     <div>Edit Post</div>
   ) : (

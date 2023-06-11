@@ -30,7 +30,7 @@ const getList = async (list: string) => {
     const data = querySnapshot.docs[index].data() as DocumentData;
 
     const image: ImageObject = {
-      pageId: data.pageId,
+      pageId: index,
       url: data.url,
       title: data.title,
       blurDataURL: data.blurDataURL,
@@ -63,10 +63,7 @@ const AlbumPage: React.FC<AlbumPage> = async ({
             src={image.src}
             alt={list}
             fill
-            sizes="(max-width: 640px) 100vw,
-            (max-width: 1280px) 50%,
-            (max-width: 1536px) 33%,
-            25vw"      
+            sizes="100vw"      
             style={{ objectFit: "cover",transform: 'translate3d(0, 0, 0)'  }}
             className="h-full w-full transition relative opacity-10"
             placeholder="blur"

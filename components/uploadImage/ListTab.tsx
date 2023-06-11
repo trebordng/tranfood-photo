@@ -6,20 +6,28 @@ interface ListTab {
   currentList: string;
   setCurrentList: React.Dispatch<SetStateAction<string>>;
   setCreatingPost: React.Dispatch<SetStateAction<string>>;
+  creatingPost: string;
 }
 const ListTab: React.FC<ListTab> = ({
   list,
   currentList,
   setCurrentList,
   setCreatingPost,
+  creatingPost,
 }) => {
   return (
     <button
       key={list}
       id={list + `-upload-tab`}
       onClick={() => {
-        setCreatingPost("viewing");
-        setCurrentList(list);
+        if (creatingPost === "creating" || creatingPost === "editing") {
+          if (confirm("Are you sure to discard current Post?")) {
+            setCreatingPost("viewing");
+            setCurrentList(list);
+          }
+        } else {
+          setCurrentList(list);
+        }
       }}
       className={`transition flex-auto shadow-xl px-24 py-8 rounded-md font-semibold text-center border-gray/10 border  ${
         currentList === list
