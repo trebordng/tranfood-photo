@@ -5,11 +5,19 @@
 * {
   outline: none;
 }
-#headlessui-portal-root{
+#headlessui-portal-root {
   position: fixed;
   z-index: 10;
-  top: 0 ;
+  top: 0;
   left: 0;
+}
+
+.max-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Maximum number of lines to display */
+  -webkit-box-orient: vertical;
 }
 /* Spinner */
 .lds-grid {
@@ -23,7 +31,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgb(134,133,239);
+  background: linear-gradient(180deg, rgba(134,133,239,1) 53%, rgba(82,195,254,1) 100%);
   animation: lds-grid 1.2s linear infinite;
 }
 .lds-grid div:nth-child(1) {
@@ -72,10 +80,16 @@
   animation-delay: -1.6s;
 }
 @keyframes lds-grid {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
   }
 }
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+

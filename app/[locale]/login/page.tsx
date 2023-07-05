@@ -20,7 +20,7 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        router.push("/uploadImage");
+        router.push("/upload");
         // ...
       })
       .catch((error) => {
@@ -35,7 +35,7 @@ const Login = () => {
     const unsubscribe = auth.onAuthStateChanged((authUser: User | null) => {
       if (authUser) {
         setLoading(false);
-        router.push("/uploadImage");
+        router.push("/upload");
       } else {
         setLoading(true);
       }

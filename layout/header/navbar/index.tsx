@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <React.Fragment>
-      <ul className="hidden xl:inline-block">
+      <ul className="hidden xl:inline-block font-antic-didone">
         {pages.map((page: PageLink) => (
           <NavLinks
             key={page.name}

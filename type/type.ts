@@ -36,3 +36,16 @@ export interface SnapShotImage {
   timestamp: Timestamp;
   blurDataURL: string;
 }
+
+export interface Post {
+  title: string;
+  image1: any;
+  description1: string;
+  [key: string]: any;
+}
+
+export interface PostData {
+  id:string;
+  post: Post;
+  timestamp: string;
+}

@@ -85,7 +85,7 @@ const Modal: React.FC<Modal> = ({ data, photoId, list, onClose }) => {
           ref={overlayRef}
           as={m.div}
           key="backdrop"
-          className="fixed inset-0 z-10 bg-black/70 backdrop-blur-2xl"
+          className="fixed inset-0 z-10 bg-black/70 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />

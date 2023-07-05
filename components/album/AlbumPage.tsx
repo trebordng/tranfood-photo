@@ -57,7 +57,7 @@ const AlbumPage: React.FC<AlbumPage> = async ({
     <Animation>
       <section className="flex flex-col md:flex-wrap md:flex-row gap-16 md:gap-24 flex-auto">
         <article
-          className={`gap-16 p-16 md:p-24 lg:32 xl:p-40 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-lg overflow-hidden text-black relative shadow ${color} flex flex-col justify-center items-center text-center`}
+          className={`gap-16 p-16 md:p-24 lg:32 xl:p-40 md:w-[calc(50%-12px)] lg:w-[calc(33.33%-16px)] h-416 xl:h-512 rounded-md overflow-hidden text-black relative shadow ${color} flex flex-col justify-center items-center text-center`}
         >
           <Image
             src={image.src}

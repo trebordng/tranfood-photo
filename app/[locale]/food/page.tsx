@@ -16,9 +16,13 @@ export const metadata = {
 
 const Food = () => {
   return (
-    <React.Fragment>
-      <AlbumPage list="Food" color="bg-gray-500" quote="There is no love sincerer than the love of food" author="-George Bernand Shaw" image={food} />
-    </React.Fragment>
+    <AlbumPage
+      list="Food"
+      color="bg-gray-500"
+      quote="There is no love sincerer than the love of food"
+      author="-George Bernand Shaw"
+      image={food}
+    />
   );
 };
 

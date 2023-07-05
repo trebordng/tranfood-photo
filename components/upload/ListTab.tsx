@@ -20,7 +20,7 @@ const ListTab: React.FC<ListTab> = ({
       key={list}
       id={list + `-upload-tab`}
       onClick={() => {
-        if (creatingPost === "creating" || creatingPost === "editing") {
+        if (creatingPost === "creating" || creatingPost.includes("editing")) {
           if (confirm("Are you sure to discard current Post?")) {
             setCreatingPost("viewing");
             setCurrentList(list);

@@ -47,7 +47,7 @@ const SharedModal: React.FC<SharedModal> = ({
   });
 
   return (
-    <>
+    <React.Fragment>
       {/* buttons */}
       {loading && (
         <article>
@@ -173,7 +173,7 @@ const SharedModal: React.FC<SharedModal> = ({
           </m.div>
         </article>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

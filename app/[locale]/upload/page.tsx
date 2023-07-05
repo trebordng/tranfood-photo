@@ -5,23 +5,25 @@ import { auth, db } from "../../../utils/firebase";
 import { useRouter } from "next/navigation";
 import { User } from "firebase/auth";
 import Animation from "@/layout/animation";
-import ImageList from "@/components/uploadImage/ImageList";
+import ImageList from "@/components/upload/ImageList";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import {
   addDoc,
   collection,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { ListState } from "@/context/CanvasContext";
 import Loading from "@/components/loading";
-import ListTab from "@/components/uploadImage/ListTab";
-import ImageButton from "@/components/uploadImage/ImageButtons";
-import { ImageObject } from "@/type/type";
-import PostList from "@/components/uploadImage/PostList";
-import PostButtons from "@/components/uploadImage/PostButtons";
+import ListTab from "@/components/upload/ListTab";
+import ImageButton from "@/components/upload/ImageButtons";
+import { ImageObject, Post } from "@/type/type";
+import PostList from "@/components/upload/PostList";
+import PostButtons from "@/components/upload/PostButtons";
 
 const UploadImage = () => {
   const router = useRouter();
@@ -41,7 +43,7 @@ const UploadImage = () => {
   const [uploadCounter, setUploadCounter] = useState<number | null>(null);
   const [totalCounter, setTotalCounter] = useState<number | null>(null);
   const [uploading, setUploading] = useState(true);
-  const [creatingPost, setCreatingPost] = useState('viewing');
+  const [creatingPost, setCreatingPost] = useState("viewing");
 
   // get list from firebase to render
   const getList = async () => {
@@ -137,7 +139,7 @@ const UploadImage = () => {
                   title: files[index].name.slice(0, -4),
                   blurDataURL: blurDataURL,
                   width: image.width,
-                  height: image.height
+                  height: image.height,
                 });
                 //Remove Loading at final doc
                 if (index === files.length - 1) {
@@ -154,6 +156,137 @@ const UploadImage = () => {
         event.target.value = "";
         setUploading(true);
       }
+    }
+  };
+
+  const checkImage = async (name: string) => {
+    const storage = getStorage();
+    const imageRef = ref(storage, name);
+    try {
+      const downloadURL = await getDownloadURL(imageRef);
+      return downloadURL;
+    } catch (error) {
+      // Handle any errors that occur during URL retrieval
+      console.error("Error getting image URL:", error);
+      return false;
+    }
+  };
+
+  const uploadPost = async (PostValues: Post, counter: number, id: string) => {
+    setUploading(false);
+    let uploadObject: Post = {
+      title: "",
+      imageTitle: "",
+      image1: "",
+      description1: "",
+    };
+    const values = Object.entries(PostValues);
+    console.log(values, counter, id);
+    if (PostValues.title !== "") {
+      const handleValues = async (index: number) => {
+        const key = values[index][0];
+        const value = values[index][1];
+        console.log(values, "4");
+        if (key.includes("image")) {
+          if (value.file !== "") {
+            const image = new Image();
+            const storage = getStorage();
+            const storageRef = ref(storage, value.file.name.slice(0, -4));
+            const alreadyUploaded = await checkImage(
+              value.file.name.slice(0, -4)
+            );
+            console.log(URL.createObjectURL(value.file));
+            if (alreadyUploaded === false) {
+              const metaData = {
+                cacheControl: "public,max-age=31536000",
+                contentType: "image/jpg",
+              };
+              await uploadBytes(storageRef, value.file, metaData).then(
+                (baseImage) => {
+                  getDownloadURL(baseImage.ref).then((url) => {
+                    // load image to create a blur image
+                    image.onload = () => {
+                      const canvas = document.createElement("canvas");
+                      let width = image.width / 2;
+                      let height = image.height / 2;
+                      canvas.width = width;
+                      canvas.height = height;
+                      const ctx = canvas.getContext("2d");
+                      ctx?.drawImage(image, 0, 0, width, height);
+                      //create blur image url
+                      const blurDataURL = canvas.toDataURL(
+                        "image/jpeg",
+                        0.000000000000000000000000000000000000000000000000000000000000001
+                      );
+                      uploadObject[key] = {
+                        url: url,
+                        blurDataURL: blurDataURL,
+                      };
+                      handleValues(index + 1);
+                    };
+                    image.src = URL.createObjectURL(value.file);
+                  });
+                }
+              );
+            } else {
+              const image = new Image();
+              image.onload = () => {
+                const canvas = document.createElement("canvas");
+                let width = image.width / 2;
+                let height = image.height / 2;
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+                ctx?.drawImage(image, 0, 0, width, height);
+                //create blur image url
+                const blurDataURL = canvas.toDataURL(
+                  "image/jpeg",
+                  0.000000000000000000000000000000000000000000000000000000000000001
+                );
+                uploadObject[key] = {
+                  url: alreadyUploaded,
+                  blurDataURL: blurDataURL,
+                };
+                handleValues(index + 1);
+              };
+              image.src = URL.createObjectURL(value.file);
+            }
+          } else {
+            uploadObject[key] = {
+              url: value.url,
+              blurDataURL: value.blurDataUrl,
+            };
+            handleValues(index + 1);
+          }
+        } else if (index !== values.length - 1) {
+          console.log(index, values.length - 1, "value");
+          uploadObject[key] = PostValues[key];
+          handleValues(index + 1);
+        }
+        // upload post
+        else if (index === values.length - 1) {
+          console.log(index);
+          uploadObject[key] = PostValues[key];
+          if (id === "") {
+            const collectionRef = collection(db, currentList);
+            console.log(uploadObject, index);
+            await addDoc(collectionRef, {
+              timestamp: serverTimestamp(),
+              counter: counter,
+              post: uploadObject,
+            });
+          } else {
+            const docRef = doc(db, currentList, id);
+            await updateDoc(docRef, { post: uploadObject, counter: counter });
+          }
+          setUploading(true);
+          setCreatingPost("viewing");
+        }
+      };
+      handleValues(0);
+    } else {
+      alert("title cannot be empty");
+      setUploading(true);
     }
   };
 
@@ -206,7 +339,9 @@ const UploadImage = () => {
             />
           ) : (
             <PostList
+              listObject={listObject[currentList]}
               currentList={currentList}
+              upload={uploadPost}
               creatingPost={creatingPost}
               setCreatingPost={setCreatingPost}
             />
