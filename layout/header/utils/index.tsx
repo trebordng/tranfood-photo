@@ -41,7 +41,7 @@ const NavUtils = () => {
     { name: "Tiếng Việt", locale: "vi" },
   ];
   return (
-    <section className="inline-block border-t border-black pt-16">
+    <div className="inline-block border-t border-black pt-16">
       {languages.map((language) => (
         <Link
           href={currentURL}
@@ -57,7 +57,7 @@ const NavUtils = () => {
           return <Icon key={icon.slug} slug={icon.slug} icon={icon.icon} />;
         })}
       </div>
-    </section>
+    </div>
   );
 };
 
