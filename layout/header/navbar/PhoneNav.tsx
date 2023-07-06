@@ -11,6 +11,7 @@ interface PhoneNav {
 
 const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
   const [show, setShow] = useState(false);
+  const [navY, setNavY] = useState(0);
   // scroll event for smaller size screens
   useEffect(() => {
     window.addEventListener("scroll", function () {
@@ -20,18 +21,10 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
       ) {
         const scrollTop =
           document.body.scrollTop || document.documentElement.scrollTop;
-        const classes = ["bg-purple", "p-4", "text-white"];
+        setNavY(document.body.scrollTop || document.documentElement.scrollTop);
         if (scrollTop > 0) {
-          for (let index = 0; index < classes.length; index++) {
-            const element = classes[index];
-            document.getElementById("phone-nav")?.classList.add(element);
-          }
           document.getElementById("logo")?.classList.add("smallSize:opacity-0");
         } else {
-          for (let index = 0; index < classes.length; index++) {
-            const element = classes[index];
-            document.getElementById("phone-nav")?.classList.remove(element);
-          }
           document
             .getElementById("logo")
             ?.classList.remove("smallSize:opacity-0");
@@ -49,9 +42,9 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
         onClick={handleToggle}
         id="phone-nav"
         aria-label="phone-nav"
-        className={`xl:hidden text-black transition-all duration-2000 ease-linear z-999 ${
-          show && "transform rotate-90 bg-white"
-        }`}
+        className={`xl:hidden transition-all duration-2000 ease-linear z-999 ${
+          navY > 0 ? "text-white p-4 bg-purple" : "text-black"
+        } ${show && "transform rotate-90 bg-white"}`}
       >
         {show ? (
           <RiCloseLine className="text-black text-2xl" />
@@ -62,7 +55,7 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
       <ul
         className={`fixed ${
           show ? "opacity-1 z-99 right-0" : "opacity-0 -z-99 -right-[100vw]"
-        } xl:hidden  w-full top-0 h-[100vh] bg-purple transition-right duration-300 flex flex-col justify-center smallNav:p-64 smallNav:justify-start items-center overflow-y-auto`}
+        }  xl:hidden w-full top-0 h-[100vh] bg-purple transition-right duration-300 flex flex-col justify-center smallNav:p-64 smallNav:justify-start items-center overflow-y-auto`}
       >
         {pages.map((page: PageLink) => (
           <NavLinks
