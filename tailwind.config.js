@@ -13,7 +13,7 @@ module.exports = {
       lg: "1024px",
       xl: { raw: "(min-height: 800px) and (min-width:1280px)" },
       smallSize: { raw: "(max-width:1279px) or (max-height: 799px)" },
-      smallNav: {raw: "(max-width:1279px) and (max-height: 700px)"}
+      smallNav: {raw: "(max-width:1150px) or (max-height: 900px)"}
     },
     extend: {
       colors: {
