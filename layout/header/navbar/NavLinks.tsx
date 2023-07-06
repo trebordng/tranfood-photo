@@ -5,19 +5,19 @@ import Link from "next/link";
 import React from "react";
 import { PageLink } from "@/type/type";
 
-const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
+const NavLinks: React.FC<PageLink> = ({ slug, sub, name }) => {
   const pathname = usePathname();
 
   return (
     <li
-      className={`whitespace-nowrap font-antic-didone text-xl tracking-wider py-8 flex items-center gap-4 ${
-        sub && "ml-24"
+      className={`whitespace-nowrap font-antic-didone text-2xl xl:text-xl tracking-wider py-8 flex items-center gap-16 xl:gap-4 ${
+        sub && "xl:ml-24"
       } ${
         pathname === slug ||
         pathname === "/vi" + slug ||
         pathname === slug + "vi"
-          ? "text-black pointer-events-none font-semibold"
-          : "text-gray font-light hover:text-black"
+          ? "text-white font-bold xl:text-black pointer-events-none xl:font-semibold"
+          : "text-black font-regular xl:text-gray xl:font-light xl:hover:text-black"
       } `}
     >
       <Link
@@ -35,4 +35,4 @@ const NavLink: React.FC<PageLink> = ({ slug, sub, name }) => {
   );
 };
 
-export default NavLink;
+export default NavLinks;

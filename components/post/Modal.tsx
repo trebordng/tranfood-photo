@@ -21,11 +21,18 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
   const router = useRouter();
 
   useEffect(() => {
+    // calculate how many paragraph
     const current = data.find((post) => post.id === postId);
     setCurrentPost(current);
     const postLength = Object.keys(current?.post || ({} as object)).length;
     setTotal((postLength - 1) / 2);
+    // add scroll event
+    document.getElementById("navbar")?.classList.add("z-999");
+
+    return document.getElementById("navbar")?.classList.remove("z-999");
   }, [postId]);
+
+  // post content
   const renderDescImg = () => {
     const items = [];
     if (total) {
@@ -34,7 +41,7 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
         const image = currentPost.post[`image` + i];
         items.push(
           <p
-            className="text-black font-regular text-lg leading-7 whitespace-pre-line"
+            className="text-black font-regular text-xl leading-7 whitespace-pre-line"
             key={"description" + i}
           >
             {description}
@@ -43,7 +50,7 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
         if (image.url !== "") {
           items.push(
             <div
-              className="relative max-w-640 block h-416 xl:h-512"
+              className="relative max-w-640 block h-512 xl:h-640"
               key={"image" + i}
             >
               <Image
@@ -74,19 +81,28 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
     <AnimatePresence>
       {/* back drop */}
       <m.div
-        key={list + postId}
+        key={list + postId + "backdrop"}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
           duration: 0.4,
           ease: "linear",
         }}
-        exit={{ opacity: 1 }}
-        className="fixed w-full h-full z-10 bg-black/70 inset-0 backdrop-blur-sm"
+        className="invisible xl:visible md:fixed w-full h-full z-2 bg-black/70 inset-0 backdrop-blur-sm"
         onClick={handleClose}
       />
       {/* post */}
-      <article className="w-full flex flex-col items-center gap-16 md:gap-24 lg:gap-32 xl:gap-40 z-99 relative bg-white p-16 md:p-24 lg:p-32 xl:p-40 rounded-md">
+      <m.article
+        key={list + postId + "post"}
+        initial={{ right: "-100%" }}
+        animate={{ right: 0 }}
+        transition={{
+          duration: 0.4,
+          ease: "linear",
+        }}
+        id={"post-" + postId}
+        className="w-full flex flex-col items-center gap-16 md:gap-24 lg:gap-32 xl:gap-40 z-2 relative bg-white xl:p-40 rounded-md"
+      >
         {/* close button */}
         <button
           onClick={handleClose}
@@ -99,9 +115,9 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
           {currentPost?.post.title}
         </h1>
         {/* Information */}
-        <div className="relative w-full flex flex-col md:flex-row md:justify-around items-center gap-16 md:gap-24 lg:gap-32 xl:gap-40 xl:w-1024 p-16 md:p-24 lg:p-32 xl:p-40 rounded-md">
+        <div className="relative w-full flex flex-col md:flex-row md:justify-around items-center md:gap-24 lg:gap-32 xl:gap-40 xl:w-1024 md:p-24 lg:p-32 xl:p-40 rounded-md overflow-hidden">
           {/* background */}
-          <div className="w-full h-full md:h-[70%] bg-gradient-to-b from-purple to-blue rounded-md absolute top-0 left-0 -z-1" />
+          <div className="w-full h-full md:h-[85%] bg-gradient-to-b from-purple to-blue rounded-md absolute top-0 left-0 -z-1" />
           {/* Content */}
           {currentPost?.post.imageTitle.blurDataURL && (
             <Image
@@ -112,10 +128,10 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
               width={412}
               height={412}
               sizes="50vw"
-              className="relative w-full h-256 md:w-368 md:h-368 xl:w-416 xl:h-416 object-cover rounded-md basis-1 lg:basis-1/2"
+              className="relative w-full h-256 md:w-416 md:h-416 object-cover md:rounded-md basis-1 lg:basis-1/2"
             />
           )}
-          <div className="text-black bg-white/40 backdrop-blur-xl p-16 rounded-md shadow-2xl">
+          <div className="text-black w-full md:w-[unset] bg-white/40 backdrop-blur-lg p-16 md:rounded-md shadow-2xl">
             <div className="flex md:flex-row flex-col gap-16 items-center basis-1/2">
               <Image
                 className="object-cover rounded-full w-64 h-64 object-top relative"
@@ -129,7 +145,7 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
               />
               <p className="font-bold text-lg ">Diep Tran</p>
             </div>
-            <p className="font-bold text-lg mt-16">
+            <p className="font-bold text-lg mt-16 text-center">
               Published: {currentPost?.timestamp}
             </p>
           </div>
@@ -142,7 +158,7 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
             list={list}
           />
         </div>
-      </article>
+      </m.article>
     </AnimatePresence>
   );
 };

@@ -1,10 +1,11 @@
+import AboutPage from "@/components/about";
 import Animation from "@/layout/animation";
 import React from "react";
 
 const About = () => {
   return (
     <Animation>
-      <div className="bg-red h-full">page</div>
+      <AboutPage />
     </Animation>
   );
 };

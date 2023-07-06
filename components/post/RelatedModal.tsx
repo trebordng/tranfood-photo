@@ -11,7 +11,6 @@ interface RelatedModal {
 const RelatedModal: React.FC<RelatedModal> = ({ data, list }) => {
   const [scroll, setScroll] = useState<number>(0);
   const [postsWidth, setPostsWidth] = useState<number>();
-  
 
   // handle Resize and current size
   const handleResize = () => {
@@ -110,7 +109,7 @@ const RelatedModal: React.FC<RelatedModal> = ({ data, list }) => {
         </button>
         <div
           id="related-posts"
-          className="w-[calc(100%-64px)] flex gap-16 md:gap-24 flex-nowrap overflow-auto cursor-pointer hide-scroll"
+          className="w-[calc(100%-64px)] flex gap-16 md:gap-24 flex-nowrap overflow-auto cursor-pointer hide-scroll transition-all"
         >
           {data.map((item: PostData, index: number) => (
             <Link

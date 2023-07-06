@@ -31,7 +31,7 @@ const Navbar = () => {
           />
         ))}
       </ul>
-      <PhoneNav />
+      <PhoneNav pages={pages} />
     </React.Fragment>
   );
 };

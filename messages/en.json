@@ -1,14 +1,29 @@
 {
   "navbar": {
-    "album":"Album",
-    "food":"Food",
-    "drink":"Drink",
-    "action":"Action",
-    "lifestyle":"Lifestyle",
-    "art":"Art",
-    "recipes":"Recipes",
-    "blogs":"Blogs",
+    "album": "Album",
+    "food": "Food",
+    "drink": "Drink",
+    "action": "Action",
+    "lifestyle": "Lifestyle",
+    "art": "Art",
+    "recipes": "Recipes",
+    "blogs": "Blogs",
     "about": "About",
-    "contact":"Contact"
+    "contact": "Contact"
+  },
+  "about": {
+    "intro": "I'm Diep Tran, a person who loves doing things artistically, and always looks for a new way to create things rather than follows a traditional way.",
+    "1": " After a few years of trying different kinds of photography, my passion became food and still life photography. With these kinds of photography, I am able to arrange the scene and create a story for each photo relative to the actual situation at the time.",
+    "2": "Like other women, I like to make friends with people, love shopping, and having coffee with friends. Since my passion for food photography became stronger I started to learn how to cook yummy dishes that look interesting as well as to put my creative arrangement touch into those dishes and photograph them.",
+    "3": "I also started writing recipes to share my way of making and presenting food. These recipes are not from professional chefs but from a person who loves cooking with creativity in her own way to create a dish that not also tastes yummy but looks inspiring for photography.​",
+    "4": "My blog is to share my experiences of photographing food, how to master the light, a good composition so that the food has to appear as mouthwatering food in the photos. If you are interested in working with me, please contact me."
+  },
+  "contact":{
+    "intro":"Please leave me a message through this form or on my social media websites!",
+    "name":"Your Name",
+    "email":"Your Email",
+    "subject":"Subject",
+    "message":"Place Your Message Here",
+    "submit":"Submit"
   }
 }

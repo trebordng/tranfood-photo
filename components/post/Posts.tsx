@@ -50,11 +50,11 @@ const Posts: React.FC<Posts> = ({ data, list }) => {
                 loading={index < 4 ? "eager" : "lazy"}
                 blurDataURL={item.post.imageTitle.blurDataURL}
               />
-              <div className="absolute bottom-0 left-0 z-99 bg-white w-full p-16 duration-3000 transition-all max-h-[8rem] group-hover:max-h-[19rem] overflow-y-hidden">
-                <h2 className="text-2xl text-purple font-bold text-center">
+              <div className="absolute bottom-0 left-0 z-2 bg-white w-full p-16 duration-3000 transition-all min-h-[8rem] max-h-[8rem] group-hover:max-h-[19rem] overflow-y-hidden flex flex-col justify-center items-center">
+                <h2 className="text-2xl text-black font-bold text-center">
                   {item.post.title}
                 </h2>
-                <i className="text-lg text-black font-semibold text-center block">
+                <i className="text-lg text-purple font-semibold text-center block">
                   {item.timestamp}
                 </i>
                 <p className="mt-16 text-md text-black font-regular break-all opacity-0 absolute max-line group-hover:relative group-hover:opacity-100">
