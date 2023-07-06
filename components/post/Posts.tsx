@@ -20,15 +20,21 @@ const Posts: React.FC<Posts> = ({ data, list }) => {
   useEffect(() => {
     setLists(list, data);
   }, []);
-
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <React.Fragment>
       {postId ? (
-        <Modal data={data} postId={postId} list={list.toLowerCase()}/>
+        <Modal data={data} postId={postId} list={list.toLowerCase()} />
       ) : (
         <React.Fragment>
           {data.map((item: PostData, index: number) => (
             <Link
+              onClick={scrollToTop}
               aria-label={item.post.title}
               key={item.id}
               shallow
