@@ -22,8 +22,7 @@ const Posts: React.FC<Posts> = ({ data, list }) => {
   }, []);
   const scrollToTop = () => {
     window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+      top: 0
     });
   };
   return (
