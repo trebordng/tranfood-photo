@@ -94,8 +94,8 @@ const Modal: React.FC<Modal> = ({ data, postId, list }) => {
       {/* post */}
       <m.article
         key={list + postId + "post"}
-        initial={{ right: "-100%" }}
-        animate={{ right: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{
           duration: 0.4,
           ease: "linear",
