@@ -62,17 +62,17 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
       <ul
         className={`fixed ${
           show ? "opacity-1 z-99 right-0" : "opacity-0 -z-99 -right-[100vw]"
-        } xl:hidden  w-full top-0 min-h-full bg-purple transition-right duration-300 flex flex-col justify-center items-center`}
+        } xl:hidden  w-full top-0 h-[100vh] bg-purple transition-right duration-300 flex flex-col justify-center smallNav:p-64 smallNav:justify-start items-center overflow-y-auto`}
       >
-      {pages.map((page: PageLink) => (
-        <NavLinks
-          key={page.name}
-          slug={page.slug}
-          sub={page.sub}
-          name={page.name}
-        />
-      ))}
-    </ul>
+        {pages.map((page: PageLink) => (
+          <NavLinks
+            key={page.name}
+            slug={page.slug}
+            sub={page.sub}
+            name={page.name}
+          />
+        ))}
+      </ul>
     </React.Fragment>
   );
 };
