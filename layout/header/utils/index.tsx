@@ -41,15 +41,18 @@ const NavUtils = () => {
     { name: "Tiếng Việt", locale: "vi" },
   ];
   return (
-    <section className="hidden xl:inline-block border-t border-black pt-16">
+    <section className="inline-block border-t border-black pt-16">
       {languages.map((language) => (
-        <Link href={currentURL} locale={language.locale} key={language.name}>
-          <button className="mb-16 font-antic-didone block text-xl text-grey hover:underline">
-            {language.name}
-          </button>
+        <Link
+          href={currentURL}
+          locale={language.locale}
+          key={language.name}
+          className="text-center mb-16 font-antic-didone block text-2xl xl:text-left xl:text-xl xl:text-grey hover:underline"
+        >
+          {language.name}
         </Link>
       ))}
-      <div className="xl:flex xl:gap-16 xl:text-2xl">
+      <div className="flex gap-16 text-2xl justify-center xl:justify-start">
         {media.map((icon: MediaIcon) => {
           return <Icon key={icon.slug} slug={icon.slug} icon={icon.icon} />;
         })}

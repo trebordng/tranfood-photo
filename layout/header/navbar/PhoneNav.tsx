@@ -4,6 +4,7 @@ import { PageLink } from "@/type/type";
 import React, { useEffect, useState } from "react";
 import { RiCloseLine, RiMenu3Line } from "react-icons/ri";
 import NavLinks from "./NavLinks";
+import NavUtils from "../utils";
 
 interface PhoneNav {
   pages: PageLink[];
@@ -66,6 +67,7 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
             name={page.name}
           />
         ))}
+        <NavUtils />
       </ul>
     </React.Fragment>
   );

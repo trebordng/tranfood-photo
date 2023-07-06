@@ -11,7 +11,9 @@ const Header = () => {
     >
       <Logo />
       <Navbar />
-      <NavUtils />
+      <div className="hidden xl:inline-block">
+        <NavUtils />
+      </div>
     </nav>
   );
 };

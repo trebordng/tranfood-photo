@@ -17,7 +17,7 @@ const NavLinks: React.FC<PageLink> = ({ slug, sub, name,onClick }) => {
         pathname === "/vi" + slug ||
         pathname === slug + "vi"
           ? "text-white font-bold underline xl:text-black xl:pointer-events-none xl:font-semibold"
-          : "text-white font-bold xl:text-gray xl:font-light xl:hover:text-black"
+          : "text-black xl:text-gray xl:font-light xl:hover:text-black"
       } `}
     >
       <Link
