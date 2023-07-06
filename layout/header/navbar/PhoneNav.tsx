@@ -59,6 +59,7 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
       >
         {pages.map((page: PageLink) => (
           <NavLinks
+            onClick={handleToggle}
             key={page.name}
             slug={page.slug}
             sub={page.sub}

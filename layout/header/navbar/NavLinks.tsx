@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { PageLink } from "@/type/type";
 
-const NavLinks: React.FC<PageLink> = ({ slug, sub, name }) => {
+const NavLinks: React.FC<PageLink> = ({ slug, sub, name,onClick }) => {
   const pathname = usePathname();
 
   return (
@@ -21,6 +21,7 @@ const NavLinks: React.FC<PageLink> = ({ slug, sub, name }) => {
       } `}
     >
       <Link
+        onClick={onClick}
         aria-label={slug}
         href={slug}
         {...(slug === "http://tranphotographicart.com/" && {

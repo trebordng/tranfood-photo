@@ -12,6 +12,7 @@ export interface PageLink {
   slug: string;
   name: string;
   sub: boolean;
+  onClick?: () => void;
 }
 
 export interface MediaIcon {
