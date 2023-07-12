@@ -7,7 +7,7 @@ import { PageLink } from "@/type/type";
 
 const NavLinks: React.FC<PageLink> = ({ slug, sub, name,onClick }) => {
   const pathname = usePathname();
-
+  
   return (
     <li
       className={`whitespace-nowrap font-antic-didone text-2xl xl:text-xl tracking-wider py-8 flex items-center gap-16 xl:gap-4 ${
@@ -17,7 +17,7 @@ const NavLinks: React.FC<PageLink> = ({ slug, sub, name,onClick }) => {
         pathname === "/vi" + slug ||
         pathname === slug + "vi"
           ? "text-white font-bold underline xl:text-black xl:pointer-events-none xl:font-semibold"
-          : "text-black xl:text-gray xl:font-light xl:hover:text-black"
+          : "text-white/70 xl:text-gray xl:font-light xl:hover:text-black"
       } `}
     >
       <Link

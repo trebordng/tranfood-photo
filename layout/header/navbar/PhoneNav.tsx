@@ -15,6 +15,8 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
   const [navY, setNavY] = useState(0);
   // scroll event for smaller size screens
   useEffect(() => {
+    // scroll to Top at start to prevent bug
+    window.scrollTo(0, 0);
     window.addEventListener("scroll", function () {
       if (
         window.innerWidth < 1280 ||

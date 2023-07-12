@@ -5,7 +5,7 @@ import React from "react";
 const Icon: React.FC<MediaIcon> = ({ slug, icon: Icon }) => {
   return (
     <Link aria-label={slug} href={slug} target="_blank" rel="noopener">
-      {Icon && <Icon className="color-white" />}
+      {Icon && <Icon className="xl:text-gray xl:hover:text-black text-white/70" />}
     </Link>
   );
 };

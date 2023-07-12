@@ -76,7 +76,7 @@ const ContactPage: React.FC<ContactPage> = ({ translateObj }) => {
   return (
     <section className="flex xl:items-center xl:justify-center w-full">
       <article className="w-full xl:w-1024 flex flex-col lg:flex-row shadow-2xl rounded-md overflow-hidden md:self-center">
-        <div className="basis-1 lg:basis-1/3 bg-gradient-to-b from-purple to-blue p-16 md:p-24 lg:p-32 xl:p-40 flex flex-col relative gap-16 md:gap-24 lg:gap-32 xl:gap-40 justify-center ">
+        <div className="basis-1 lg:basis-1/3 bg-purple p-16 md:p-24 lg:p-32 xl:p-40 flex flex-col relative gap-16 md:gap-24 lg:gap-32 xl:gap-40 justify-center ">
           <Image
             src={lady.src}
             alt="pretty lady"
@@ -101,7 +101,7 @@ const ContactPage: React.FC<ContactPage> = ({ translateObj }) => {
           <div
             className={`absolute w-full ${
               loading ? "opacity-100 z-9" : "opacity-0 -z-1"
-            } h-full transition-all duration-400 bg-blue xl:bg-gradient-to-b xl:from-purple xl:to-blue flex justify-center items-center`}
+            } h-full transition-all duration-400 bg-purple flex justify-center items-center`}
           >
             {!success && loading && <span className="loader"></span>}
             <div
@@ -115,6 +115,7 @@ const ContactPage: React.FC<ContactPage> = ({ translateObj }) => {
               </p>
             </div>
           </div>
+          {/* form */}
           <form
             id="form"
             onSubmit={sendEmail}

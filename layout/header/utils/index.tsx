@@ -41,13 +41,13 @@ const NavUtils = () => {
     { name: "Tiếng Việt", locale: "vi" },
   ];
   return (
-    <div className="inline-block border-t border-black pt-16">
+    <div className="inline-block border-t border-white/50 xl:border-black pt-16">
       {languages.map((language) => (
         <Link
           href={currentURL}
           locale={language.locale}
           key={language.name}
-          className="text-center mb-16 font-antic-didone block text-2xl xl:text-left xl:text-xl xl:text-grey hover:underline"
+          className="text-center mb-16 font-antic-didone block text-2xl xl:text-left xl:text-xl xl:text-gray text-white/70 hover:underline"
         >
           {language.name}
         </Link>

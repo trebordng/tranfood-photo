@@ -22,7 +22,7 @@ const AboutPage = () => {
   return (
     <section className="flex xl:items-center xl:justify-center w-full">
       <article className="w-full xl:w-1024 flex flex-col lg:flex-row shadow-2xl rounded-md overflow-hidden">
-        <div className="basis-1 lg:basis-1/3 bg-gradient-to-b from-purple to-blue p-16 md:p-24 lg:p-32 xl:p-40 flex flex-col relative gap-16 md:gap-24 lg:gap-32 xl:gap-40 justify-center ">
+        <div className="basis-1 lg:basis-1/3 bg-purple p-16 md:p-24 lg:p-32 xl:p-40 flex flex-col relative gap-16 md:gap-24 lg:gap-32 xl:gap-40 justify-center ">
           <Image
             src={lady.src}
             alt="pretty lady"
