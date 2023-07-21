@@ -39,6 +39,7 @@ const PhoneNav: React.FC<PhoneNav> = ({ pages }) => {
   const handleToggle = () => {
     setShow(!show);
   };
+
   return (
     <React.Fragment>
       <button

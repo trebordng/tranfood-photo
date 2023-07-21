@@ -4,11 +4,18 @@ interface Loading {
   uploadCounter: number | null;
   totalCounter: number | null;
 }
-const Loading: React.FC<Loading> = ({ uploadCounter, totalCounter}) => {
+const Loading: React.FC<Loading> = ({ uploadCounter, totalCounter }) => {
   return (
     <div className="grow flex justify-center items-center flex-col">
       {/* Spinner */}
-      <span className="spinner"></span>
+      <div className="sk-chase">
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+        <div className="sk-chase-dot"></div>
+      </div>
 
       {uploadCounter !== null && (
         <div className="mt-16">
