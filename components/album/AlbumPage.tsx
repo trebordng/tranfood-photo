@@ -7,7 +7,7 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import React from "react";
+import React, { Suspense } from "react";
 import Images from "./Images";
 import Image, { StaticImageData } from "next/image";
 import { ImageObject } from "@/type/type";
@@ -35,7 +35,7 @@ const getList = async (list: string) => {
       title: data.title,
       blurDataURL: data.blurDataURL,
       width: data.width,
-      height: data.height
+      height: data.height,
     };
     result.push(image);
   }
@@ -63,8 +63,8 @@ const AlbumPage: React.FC<AlbumPage> = async ({
             src={image.src}
             alt={list}
             fill
-            sizes="100vw"      
-            style={{ objectFit: "cover",transform: 'translate3d(0, 0, 0)'  }}
+            sizes="100vw"
+            style={{ objectFit: "cover", transform: "translate3d(0, 0, 0)" }}
             className="h-full w-full transition relative opacity-10"
             placeholder="blur"
             loading="lazy"
@@ -76,7 +76,9 @@ const AlbumPage: React.FC<AlbumPage> = async ({
             <p className="font-semibold text-md ">{author}</p>
           </div>
         </article>
-        <Images data={data} list={list} />
+        <Suspense>
+          <Images data={data} list={list} />
+        </Suspense>
       </section>
     </Animation>
   );

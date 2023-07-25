@@ -7,7 +7,7 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import React from "react";
+import React, { Suspense } from "react";
 import Posts from "./Posts";
 import { PostData } from "@/type/type";
 
@@ -39,7 +39,9 @@ const PostPage: React.FC<PostPage> = async ({ list }) => {
   return (
     <Animation>
       <section className="flex flex-col md:flex-wrap md:flex-row gap-16 md:gap-24 flex-auto">
-        <Posts data={data} list={list} />
+        <Suspense>
+          <Posts data={data} list={list} />
+        </Suspense>
       </section>
     </Animation>
   );
